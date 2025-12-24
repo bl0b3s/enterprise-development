@@ -2,7 +2,6 @@ namespace CarRental.Tests;
 
 using CarRental.Domain_.Data;
 using CarRental.Domain_.Models;
-using CarRental.Domain_.Data;
 using Xunit;
 
 /// <summary>
@@ -19,8 +18,8 @@ public class CarRentalTests(CarRentalFixture fixture) : IClassFixture<CarRentalF
     public void GetCustomersForModel_ShouldReturnCustomersOrderedByName()
     {
         const string modelName = "Toyota Camry";
-        const int expectedCount = 3;
-        var expectedNames = new List<string> { "Иван Петров", "Мария Сидорова", "Валентина Романова" };
+        const int expectedCount = 4;
+        var expectedNames = new List<string> { "Алексей Смирнов", "Валентина Романова", "Иван Петров", "Мария Сидорова"};
 
         var targetModel = fixture.Models.First(m => m.Name == modelName);
 
@@ -140,3 +139,4 @@ public class CarRentalTests(CarRentalFixture fixture) : IClassFixture<CarRentalF
         }
     }
 }
+
