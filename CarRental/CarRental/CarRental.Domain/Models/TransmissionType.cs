@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CarRental.Domain_.Models;
+﻿namespace CarRental.Domain_.Models;
 
 /// <summary>
 /// Перечисление типов коробки передач
@@ -24,7 +18,7 @@ public enum TransmissionType
     /// <summary>
     /// Вариатор (бесступенчатая трансмиссия)
     /// </summary>
-    CVT,
+    Cvt,
 
     /// <summary>
     /// Робот (автоматизированная механика)

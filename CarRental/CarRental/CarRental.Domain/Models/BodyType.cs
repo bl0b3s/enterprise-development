@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CarRental.Domain_.Models;
+﻿namespace CarRental.Domain_.Models;
 
 /// <summary>
 /// Перечисление типов кузова
@@ -29,7 +23,7 @@ public enum BodyType
     /// <summary>
     /// Внедорожник (SUV, повышенная проходимость)
     /// </summary>
-    SUV,
+    Suv,
 
     /// <summary>
     /// Универсал (седан с большим багажником)

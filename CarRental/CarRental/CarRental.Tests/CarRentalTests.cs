@@ -1,25 +1,26 @@
-namespace CarRental.Tests;
-
 using CarRental.Domain_.Data;
 using CarRental.Domain_.Models;
 using Xunit;
 
-/// <summary>
-/// Юнит-тесты для пункта проката автомобилей
-/// </summary>
-/// <param name="fixture">Fixture с тестовыми данными</param>
+namespace CarRental.Tests;
+
+
+// <summary>
+// Р®РЅРёС‚-С‚РµСЃС‚С‹ РґР»СЏ РїСѓРЅРєС‚Р° РїСЂРѕРєР°С‚Р° Р°РІС‚РѕРјРѕР±РёР»РµР№
+// </summary>
+// <param name="fixture">Fixture СЃ С‚РµСЃС‚РѕРІС‹РјРё РґР°РЅРЅС‹РјРё</param>
 public class CarRentalTests(CarRentalFixture fixture) : IClassFixture<CarRentalFixture>
 {
-    /// <summary>
-    /// ТЕСТ 1: Вывести информацию обо всех клиентах, 
-    /// которые брали в аренду автомобили указанной модели, упорядочить по ФИО.
-    /// </summary>
+    // <summary>
+    // РўР•РЎРў 1: Р’С‹РІРµСЃС‚Рё РёРЅС„РѕСЂРјР°С†РёСЋ РѕР±Рѕ РІСЃРµС… РєР»РёРµРЅС‚Р°С…, 
+    // РєРѕС‚РѕСЂС‹Рµ Р±СЂР°Р»Рё РІ Р°СЂРµРЅРґСѓ Р°РІС‚РѕРјРѕР±РёР»Рё СѓРєР°Р·Р°РЅРЅРѕР№ РјРѕРґРµР»Рё, СѓРїРѕСЂСЏРґРѕС‡РёС‚СЊ РїРѕ Р¤РРћ.
+    // </summary>
     [Fact]
     public void GetCustomersForModel_ShouldReturnCustomersOrderedByName()
     {
         const string modelName = "Toyota Camry";
         const int expectedCount = 4;
-        var expectedNames = new List<string> { "Алексей Смирнов", "Валентина Романова", "Иван Петров", "Мария Сидорова"};
+        var expectedNames = new List<string> { "РђР»РµРєСЃРµР№ РЎРјРёСЂРЅРѕРІ", "Р’Р°Р»РµРЅС‚РёРЅР° Р РѕРјР°РЅРѕРІР°", "РРІР°РЅ РџРµС‚СЂРѕРІ", "РњР°СЂРёСЏ РЎРёРґРѕСЂРѕРІР°"};
 
         var targetModel = fixture.Models.First(m => m.Name == modelName);
 
@@ -34,9 +35,9 @@ public class CarRentalTests(CarRentalFixture fixture) : IClassFixture<CarRentalF
         Assert.Equal(expectedNames, customersForModel.Select(c => c.FullName));
     }
 
-    /// <summary>
-    /// ТЕСТ 2: Вывести информацию об автомобилях, находящихся в аренде.
-    /// </summary>
+    // <summary>
+    // РўР•РЎРў 2: Р’С‹РІРµСЃС‚Рё РёРЅС„РѕСЂРјР°С†РёСЋ РѕР± Р°РІС‚РѕРјРѕР±РёР»СЏС…, РЅР°С…РѕРґСЏС‰РёС…СЃСЏ РІ Р°СЂРµРЅРґРµ.
+    // </summary>
     [Fact]
     public void GetCarsInRental_ShouldReturnCarsWithoutReturnTime()
     {
@@ -63,9 +64,9 @@ public class CarRentalTests(CarRentalFixture fixture) : IClassFixture<CarRentalF
         fixture.Contracts.Remove(contractWithoutReturn);
     }
 
-    /// <summary>
-    /// ТЕСТ 3: Вывести топ 5 наиболее часто арендуемых автомобилей.
-    /// </summary>
+    // <summary>
+    // РўР•РЎРў 3: Р’С‹РІРµСЃС‚Рё С‚РѕРї 5 РЅР°РёР±РѕР»РµРµ С‡Р°СЃС‚Рѕ Р°СЂРµРЅРґСѓРµРјС‹С… Р°РІС‚РѕРјРѕР±РёР»РµР№.
+    // </summary>
     [Fact]
     public void GetTop5MostRentedCars_ShouldReturnTopCars()
     {
@@ -86,7 +87,7 @@ public class CarRentalTests(CarRentalFixture fixture) : IClassFixture<CarRentalF
     }
 
     /// <summary>
-    /// ТЕСТ 4: Для каждого автомобиля вывести число аренд.
+    /// РўР•РЎРў 4: Р”Р»СЏ РєР°Р¶РґРѕРіРѕ Р°РІС‚РѕРјРѕР±РёР»СЏ РІС‹РІРµСЃС‚Рё С‡РёСЃР»Рѕ Р°СЂРµРЅРґ.
     /// </summary>
     [Fact]
     public void GetRentalCountPerCar_ShouldReturnCorrectCounts()
@@ -110,7 +111,7 @@ public class CarRentalTests(CarRentalFixture fixture) : IClassFixture<CarRentalF
     }
 
     /// <summary>
-    /// ТЕСТ 5: Вывести топ 5 клиентов по сумме аренды.
+    /// РўР•РЎРў 5: Р’С‹РІРµСЃС‚Рё С‚РѕРї 5 РєР»РёРµРЅС‚РѕРІ РїРѕ СЃСѓРјРјРµ Р°СЂРµРЅРґС‹.
     /// </summary>
     [Fact]
     public void GetTop5CustomersByRentalCost_ShouldReturnTopCustomers()
