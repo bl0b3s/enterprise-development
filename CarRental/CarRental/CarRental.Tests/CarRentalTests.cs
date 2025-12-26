@@ -22,11 +22,15 @@ public class CarRentalTests(CarRentalFixture fixture) : IClassFixture<CarRentalF
         const int expectedCount = 4;
         var expectedNames = new List<string> { "Алексей Смирнов", "Валентина Романова", "Иван Петров", "Мария Сидорова"};
 
-        var targetModel = fixture.Models.First(m => m.Name == modelName);
+        //var targetModel = fixture.Models.First(m => m.Name == modelName);
 
-        var customersForModel = fixture.Contracts
-            .Where(c => fixture.Cars.First(car => car.CarId == c.CarId).GenerationId is 1 or 2)
-            .Select(c => fixture.Customers.First(cust => cust.CustomerId == c.CustomerId))
+        var customersForModel =
+            (from contract in fixture.Contracts
+             join car in fixture.Cars on contract.CarId equals car.CarId
+             join model in fixture.Models on car.ModelId equals model.ModelId
+             join customer in fixture.Customers on contract.CustomerId equals customer.CustomerId
+             where model.Name == modelName && car.GenerationId is 1 or 2
+             select customer)
             .Distinct()
             .OrderBy(c => c.FullName)
             .ToList();
@@ -41,17 +45,6 @@ public class CarRentalTests(CarRentalFixture fixture) : IClassFixture<CarRentalF
     [Fact]
     public void GetCarsInRental_ShouldReturnCarsWithoutReturnTime()
     {
-        var contractWithoutReturn = new RentalContract
-        {
-            ContractId = 999,
-            CarId = 6,
-            CustomerId = 1,
-            IssuanceTime = DateTime.Now.AddHours(-5),
-            DurationHours = 24,
-            ReturnTime = null
-        };
-        fixture.Contracts.Add(contractWithoutReturn);
-
         var carsInRental = fixture.Contracts
             .Where(c => c.ReturnTime == null)
             .Select(c => fixture.Cars.First(car => car.CarId == c.CarId))
@@ -61,7 +54,6 @@ public class CarRentalTests(CarRentalFixture fixture) : IClassFixture<CarRentalF
         Assert.NotEmpty(carsInRental);
         Assert.Contains(carsInRental, c => c.CarId == 6);
 
-        fixture.Contracts.Remove(contractWithoutReturn);
     }
 
     // <summary>

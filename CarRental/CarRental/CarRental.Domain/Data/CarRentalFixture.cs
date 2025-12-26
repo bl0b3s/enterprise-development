@@ -12,7 +12,7 @@ public class CarRentalFixture
     public List<CarModel> _models;
     public List<ModelGeneration> _generations;
     public List<Car> _cars;
-    public List<Customer> _customers;
+    public List<Clients> _customers;
     public List<RentalContract> _contracts;
 
     public CarRentalFixture()
@@ -85,6 +85,35 @@ public class CarRentalFixture
     public List<CarModel> Models => _models;
     public List<ModelGeneration> Generations => _generations;
     public List<Car> Cars => _cars;
-    public List<Customer> Customers => _customers;
+    public List<Clients> Customers => _customers;
     public List<RentalContract> Contracts => _contracts;
+
+    public CarRentalFixture()
+    {
+        Customers.AddRange(
+        [
+            new() { CustomerId = 1, FullName = "Иван Петров" },
+            new() { CustomerId = 2, FullName = "Мария Сидорова" },
+            new() { CustomerId = 3, FullName = "Алексей Смирнов" },
+            new() { CustomerId = 4, FullName = "Валентина Романова" }
+        ]);
+
+        Cars.AddRange(
+        [
+            new() { CarId = 1, ModelId = 1, GenerationId = 1, LicensePlate = "A111AA", Color = "Белый" },
+            new() { CarId = 2, ModelId = 1, GenerationId = 2, LicensePlate = "A222AA", Color = "Черный" },
+            new() { CarId = 3, ModelId = 2, GenerationId = 3, LicensePlate = "B333BB", Color = "Серый" },
+            new() { CarId = 4, ModelId = 3, GenerationId = 4, LicensePlate = "C444CC", Color = "Красный" },
+            new() { CarId = 5, ModelId = 4, GenerationId = 5, LicensePlate = "D555DD", Color = "Синий" },
+            new() { CarId = 6, ModelId = 5, GenerationId = 6, LicensePlate = "E666EE", Color = "Черный" }
+        ]);
+
+        Contracts.AddRange(
+        [
+            new() { ContractId = 1, CarId = 1, CustomerId = 1, IssuanceTime = new DateTime(2024, 1, 1, 10, 0, 0), DurationHours = 5, ReturnTime = new DateTime(2024, 1, 1, 15, 0, 0) },
+            new() { ContractId = 2, CarId = 1, CustomerId = 2, IssuanceTime = new DateTime(2024, 2, 1, 9, 0, 0), DurationHours = 24, ReturnTime = new DateTime(2024, 2, 2, 9, 0, 0) },
+            new() { ContractId = 3, CarId = 2, CustomerId = 3, IssuanceTime = new DateTime(2024, 3, 1, 12, 0, 0), DurationHours = 10, ReturnTime = new DateTime(2024, 3, 1, 22, 0, 0) },
+            new() { ContractId = 999, CarId = 6, CustomerId = 1, IssuanceTime = new DateTime(2024, 4, 1, 10, 0, 0), DurationHours = 24, ReturnTime = null }
+        ]);
+    }
 }

@@ -3,17 +3,17 @@
 /// <summary>
 /// Клиент пункта проката
 /// </summary>
-public class Customer
+public class Client
 {
     /// <summary>
     /// Уникальный ID клиента
     /// </summary>
-    public required int CustomerId { get; set; }
+    public required int Id { get; set; }
 
     /// <summary>
     /// Номер водительского удостоверения (уникален)
     /// </summary>
-    public required string DriverLicenseNumber { get; set; }
+    public required string LicenseNumber { get; set; }
 
     /// <summary>
     /// Полное имя клиента (ФИО)
@@ -28,5 +28,5 @@ public class Customer
     /// <summary>
     /// История аренд этого клиента
     /// </summary>
-    public ICollection<RentalContract> RentalContracts { get; set; } = new List<RentalContract>();
+    public List<RentalContract> RentalContracts { get; set; } = new ();
 }

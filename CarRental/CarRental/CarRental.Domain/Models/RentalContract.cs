@@ -11,7 +11,7 @@ public class RentalContract
     /// <summary>
     /// Уникальный ID контракта
     /// </summary>
-    public required int ContractId { get; set; }
+    public required int Id { get; set; }
 
     /// <summary>
     /// Внешний ключ на автомобиль
@@ -21,17 +21,17 @@ public class RentalContract
     /// <summary>
     /// Внешний ключ на клиента
     /// </summary>
-    public required int CustomerId { get; set; }
+    public required int ClientId { get; set; }
 
     /// <summary>
     /// Дата и время выдачи автомобиля клиенту
     /// </summary>
-    public required DateTime IssuanceTime { get; set; }
+    public required DateTime RentalDate { get; set; }
 
     /// <summary>
     /// Длительность аренды в часах
     /// </summary>
-    public required int DurationHours { get; set; }
+    public required int RentalHours { get; set; }
 
     /// <summary>
     /// Дата и время возврата (может быть null, если машина ещё в аренде)
@@ -46,5 +46,5 @@ public class RentalContract
     /// <summary>
     /// Ссылка на клиента, арендовавшего машину
     /// </summary>
-    public Customer? Customer { get; set; }
+    public Client? Client { get; set; }
 }

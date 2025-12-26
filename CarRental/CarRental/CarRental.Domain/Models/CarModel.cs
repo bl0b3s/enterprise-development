@@ -8,7 +8,7 @@ public class CarModel
     /// <summary>
     /// Уникальный идентификатор модели
     /// </summary>
-    public required int ModelId { get; set; }
+    public required int Id { get; set; }
 
     /// <summary>
     /// Название модели (например, "Toyota Camry")
@@ -38,6 +38,6 @@ public class CarModel
     /// <summary>
     /// Коллекция поколений этой модели
     /// </summary>
-    public ICollection<ModelGeneration> Generations { get; set; } = new List<ModelGeneration>();
+    public List<ModelGeneration> Generations { get; set; } = new ();
 }
 

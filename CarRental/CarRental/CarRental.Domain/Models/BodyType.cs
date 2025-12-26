@@ -8,30 +8,30 @@ public enum BodyType
     /// <summary>
     /// Седан (4-5 мест, закрытый)
     /// </summary>
-    Sedan,
+    Sedan = 0,
 
     /// <summary>
     /// Хэтчбек (компактный, спортивный)
     /// </summary>
-    Hatchback,
+    Hatchback = 1,
 
     /// <summary>
     /// Купе (спортивный, 2-3 места)
     /// </summary>
-    Coupe,
+    Coupe = 2,
 
     /// <summary>
     /// Внедорожник (SUV, повышенная проходимость)
     /// </summary>
-    Suv,
+    Suv = 3,
 
     /// <summary>
     /// Универсал (седан с большим багажником)
     /// </summary>
-    Wagon,
+    Wagon = 4,
 
     /// <summary>
     /// Пикап (с открытым кузовом сзади)
     /// </summary>
-    Pickup
+    Pickup = 5
 }

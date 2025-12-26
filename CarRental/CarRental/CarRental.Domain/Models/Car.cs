@@ -8,12 +8,12 @@ public class Car
     /// <summary>
     /// Уникальный ID автомобиля в парке
     /// </summary>
-    public required int CarId { get; set; }
+    public required int Id { get; set; }
 
     /// <summary>
     /// Внешний ключ на поколение модели
     /// </summary>
-    public required int GenerationId { get; set; }
+    public required int ModelGenerationId { get; set; }
 
     /// <summary>
     /// Государственный номер
@@ -28,11 +28,11 @@ public class Car
     /// <summary>
     /// Ссылка на поколение модели этого автомобиля
     /// </summary>
-    public ModelGeneration? Generation { get; set; }
+    public ModelGeneration? ModelGeneration { get; set; }
 
     /// <summary>
     /// История аренд этого автомобиля
     /// </summary>
-    public ICollection<RentalContract> RentalContracts { get; set; } = new List<RentalContract>();
+    public List<RentalContract> RentalContracts { get; set; } = new ();
 }
 

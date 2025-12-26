@@ -8,20 +8,20 @@ public enum TransmissionType
     /// <summary>
     /// Механическая коробка передач (МКПП)
     /// </summary>
-    Manual,
+    Manual = 0,
 
     /// <summary>
     /// Автоматическая коробка передач (АКПП)
     /// </summary>
-    Automatic,
+    Automatic = 1,
 
     /// <summary>
     /// Вариатор (бесступенчатая трансмиссия)
     /// </summary>
-    Cvt,
+    Cvt = 2,
 
     /// <summary>
     /// Робот (автоматизированная механика)
     /// </summary>
-    Robot
+    Robot = 3
 }

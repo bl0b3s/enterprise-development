@@ -9,7 +9,7 @@ public class ModelGeneration
     /// <summary>
     /// Уникальный идентификатор поколения
     /// </summary>
-    public required int GenerationId { get; set; }
+    public required int Id { get; set; }
 
     /// <summary>
     /// Внешний ключ на модель
@@ -29,12 +29,12 @@ public class ModelGeneration
     /// <summary>
     /// Тип коробки передач
     /// </summary>
-    public required TransmissionType TransmissionType { get; set; }
+    public required TransmissionType Transmission { get; set; }
 
     /// <summary>
     /// Стоимость аренды в час
     /// </summary>
-    public required decimal HourlyRate { get; set; }
+    public required decimal RentalPricePerHour { get; set; }
 
     /// <summary>
     /// Ссылка на модель (навигационное свойство)
@@ -44,5 +44,5 @@ public class ModelGeneration
     /// <summary>
     /// Коллекция автомобилей этого поколения
     /// </summary>
-    public ICollection<Car> Cars { get; set; } = new List<Car>();
+    public List<Car> Cars { get; set; } = new ();
 }
