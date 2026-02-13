@@ -1,5 +1,4 @@
 ﻿using CarRental.Domain_.Models;
-using System.Runtime.ConstrainedExecution;
 
 namespace CarRental.Domain_.Data;
 
@@ -9,111 +8,113 @@ namespace CarRental.Domain_.Data;
 /// </summary>
 public class CarRentalFixture
 {
-    public List<CarModel> _models;
-    public List<ModelGeneration> _generations;
-    public List<Car> _cars;
-    public List<Clients> _customers;
-    public List<Rental> _contracts;
+    public List<CarModel> CarModels { get; }
+    public List<ModelGeneration> ModelGenerations { get; }
+    public List<Car> Cars { get; }
+    public List<Client> Clients { get; }
+    public List<Rental> Rentals { get; }
 
     public CarRentalFixture()
     {
-        _models =
+        CarModels =
         [
-
-            new() { ModelId = 1, Name = "Toyota Camry", DriveType = DriveType.FrontWheelDrive, SeatsCount = 5, BodyType = BodyType.Sedan, Class = CarClass.Middle },
-            new() { ModelId = 2, Name = "BMW X5",        DriveType = DriveType.AllWheelDrive,   SeatsCount = 7, BodyType = BodyType.SUV,   Class = CarClass.Premium },
-            new() { ModelId = 3, Name = "Volkswagen Golf", DriveType = DriveType.FrontWheelDrive, SeatsCount = 5, BodyType = BodyType.Hatchback, Class = CarClass.Economy },
-            new() { ModelId = 4, Name = "Audi A6",      DriveType = DriveType.AllWheelDrive,   SeatsCount = 5, BodyType = BodyType.Sedan, Class = CarClass.Premium },
-            new() { ModelId = 5, Name = "Mercedes C-Class", DriveType = DriveType.RearWheelDrive, SeatsCount = 5, BodyType = BodyType.Sedan, Class = CarClass.Premium }
+            new() { Id = 1, Name = "BMW 3 Series", DriveType = "RWD", SeatsCount = 5, BodyType = "Sedan", Class = "Premium" },
+            new() { Id = 2, Name = "Ford Mustang", DriveType = "RWD", SeatsCount = 4, BodyType = "Coupe", Class = "Sports"  },
+            new() { Id = 3, Name = "Honda Civic", DriveType = "FWD", SeatsCount = 5, BodyType = "Sedan", Class = "Compact" },
+            new() { Id = 4, Name = "Jeep Wrangler", DriveType = "4WD", SeatsCount = 5, BodyType = "SUV", Class = "Off-road" },
+            new() { Id = 5, Name = "Porsche 911", DriveType = "RWD", SeatsCount = 4, BodyType = "Coupe", Class = "Luxury" },
+            new() { Id = 6, Name = "Chevrolet Tahoe", DriveType = "AWD", SeatsCount = 8, BodyType = "SUV", Class = "Full-size" },
+            new() { Id = 7, Name = "Lada Vesta", DriveType = "FWD", SeatsCount = 5, BodyType = "Sedan", Class = "Economy" },
+            new() { Id = 8, Name = "Subaru Outback", DriveType = "AWD", SeatsCount = 5, BodyType = "SUV", Class = "Mid-size" },
+            new() { Id = 9, Name = "GAZ Gazelle Next", DriveType = "RWD", SeatsCount = 3, BodyType = "Van", Class = "Commercial" },
+            new() { Id = 10, Name = "Toyota Prius", DriveType = "FWD", SeatsCount = 5, BodyType = "Hatchback", Class = "Hybrid" },
+            new() { Id = 11, Name = "UAZ Patriot", DriveType = "4WD", SeatsCount = 5, BodyType = "SUV", Class = "Off-road" },
+            new() { Id = 12, Name = "Lexus RX", DriveType = "AWD", SeatsCount = 5, BodyType = "SUV", Class = "Premium" },
+            new() { Id = 13, Name = "Range Rover Sport", DriveType = "AWD", SeatsCount = 5, BodyType = "SUV", Class = "Luxury" },
+            new() { Id = 14, Name = "Audi A4", DriveType = "AWD", SeatsCount = 5, BodyType = "Sedan", Class = "Premium" },
+            new() { Id = 15, Name = "Lada Niva Travel", DriveType = "4WD", SeatsCount = 5, BodyType = "SUV", Class = "Off-road" }
         ];
 
-        _generations =
+
+        ModelGenerations =
         [
-            new() { GenerationId = 1, ModelId = 1, Year = 2020, EngineVolume = 2.5, TransmissionType = TransmissionType.Automatic, HourlyRate = 50 },
-            new() { GenerationId = 2, ModelId = 1, Year = 2022, EngineVolume = 2.5, TransmissionType = TransmissionType.Automatic, HourlyRate = 60 },
-            new() { GenerationId = 3, ModelId = 2, Year = 2019, EngineVolume = 3.0, TransmissionType = TransmissionType.Automatic, HourlyRate = 120 },
-            new() { GenerationId = 4, ModelId = 2, Year = 2023, EngineVolume = 3.0, TransmissionType = TransmissionType.Automatic, HourlyRate = 150 },
-            new() { GenerationId = 5, ModelId = 3, Year = 2021, EngineVolume = 1.5, TransmissionType = TransmissionType.Manual,    HourlyRate = 30  },
-            new() { GenerationId = 6, ModelId = 4, Year = 2020, EngineVolume = 2.0, TransmissionType = TransmissionType.Automatic, HourlyRate = 100 },
-            new() { GenerationId = 7, ModelId = 5, Year = 2021, EngineVolume = 2.0, TransmissionType = TransmissionType.Automatic, HourlyRate = 110 }
+            new() { Id = 1, Year = 2023, EngineVolume = 2.0, Transmission = "AT", RentalPricePerHour = 2200, ModelId = 1, Model = CarModels[0] },
+            new() { Id = 2, Year = 2022, EngineVolume = 5.0, Transmission = "AT", RentalPricePerHour = 5000, ModelId = 2, Model = CarModels[1] },
+            new() { Id = 3, Year = 2024, EngineVolume = 1.5, Transmission = "CVT", RentalPricePerHour = 1200, ModelId = 3, Model = CarModels[2] },
+            new() { Id = 4, Year = 2023, EngineVolume = 3.6, Transmission = "AT", RentalPricePerHour = 2800, ModelId = 4, Model = CarModels[3] },
+            new() { Id = 5, Year = 2024, EngineVolume = 3.0, Transmission = "AT", RentalPricePerHour = 8000, ModelId = 5, Model = CarModels[4] },
+            new() { Id = 6, Year = 2022, EngineVolume = 5.3, Transmission = "AT", RentalPricePerHour = 3500, ModelId = 6, Model = CarModels[5] },
+            new() { Id = 7, Year = 2023, EngineVolume = 1.6, Transmission = "MT", RentalPricePerHour = 700, ModelId = 7, Model = CarModels[6] },
+            new() { Id = 8, Year = 2024, EngineVolume = 2.5, Transmission = "AT", RentalPricePerHour = 1800, ModelId = 8, Model = CarModels[7] },
+            new() { Id = 9, Year = 2022, EngineVolume = 2.7, Transmission = "MT", RentalPricePerHour = 1500, ModelId = 9, Model = CarModels[8] },
+            new() { Id = 10, Year = 2023, EngineVolume = 1.8, Transmission = "CVT", RentalPricePerHour = 1600, ModelId = 10, Model = CarModels[9] },
+            new() { Id = 11, Year = 2022, EngineVolume = 2.7, Transmission = "MT", RentalPricePerHour = 1400, ModelId = 11, Model = CarModels[10] },
+            new() { Id = 12, Year = 2024, EngineVolume = 3.5, Transmission = "AT", RentalPricePerHour = 3200, ModelId = 12, Model = CarModels[11] },
+            new() { Id = 13, Year = 2023, EngineVolume = 3.0, Transmission = "AT", RentalPricePerHour = 6000, ModelId = 13, Model = CarModels[12] },
+            new() { Id = 14, Year = 2024, EngineVolume = 2.0, Transmission = "AT", RentalPricePerHour = 2800, ModelId = 14, Model = CarModels[13] },
+            new() { Id = 15, Year = 2023, EngineVolume = 1.7, Transmission = "MT", RentalPricePerHour = 900, ModelId = 15, Model = CarModels[14] }
         ];
 
-        _cars = 
+        Cars =
         [
-            new() { CarId = 1, GenerationId = 1, LicensePlate = "А001РС77", Color = "Белый" },
-            new() { CarId = 2, GenerationId = 1, LicensePlate = "А002РС77", Color = "Черный" },
-            new() { CarId = 3, GenerationId = 2, LicensePlate = "А003РС77", Color = "Серебристый" },
-            new() { CarId = 4, GenerationId = 3, LicensePlate = "В001РС77", Color = "Черный" },
-            new() { CarId = 5, GenerationId = 4, LicensePlate = "В002РС77", Color = "Белый" },
-            new() { CarId = 6, GenerationId = 5, LicensePlate = "В003РС77", Color = "Синий" },
-            new() { CarId = 7, GenerationId = 5, LicensePlate = "В004РС77", Color = "Красный" },
-            new() { CarId = 8, GenerationId = 6, LicensePlate = "А004РС77", Color = "Серебристый" },
-            new() { CarId = 9, GenerationId = 6, LicensePlate = "А005РС77", Color = "Черный" },
-            new() { CarId = 10, GenerationId = 7, LicensePlate = "А006РС77", Color = "Серебристый" }
+            new() { Id = 1, LicensePlate = "A001AA163", Color = "Black", ModelGenerationId = 1, ModelGeneration = ModelGenerations[0] },
+            new() { Id = 2, LicensePlate = "B777BC163", Color = "Red", ModelGenerationId = 2, ModelGeneration = ModelGenerations[1] },
+            new() { Id = 3, LicensePlate = "C123ET163", Color = "White", ModelGenerationId = 3, ModelGeneration = ModelGenerations[2] },
+            new() { Id = 4, LicensePlate = "E555KH163", Color = "Green", ModelGenerationId = 4, ModelGeneration = ModelGenerations[3] },
+            new() { Id = 5, LicensePlate = "K234MR163", Color = "Silver", ModelGenerationId = 5, ModelGeneration = ModelGenerations[4] },
+            new() { Id = 6, LicensePlate = "M888OA163", Color = "Gray", ModelGenerationId = 6, ModelGeneration = ModelGenerations[5] },
+            new() { Id = 7, LicensePlate = "N456RS163", Color = "Blue", ModelGenerationId = 7, ModelGeneration = ModelGenerations[6] },
+            new() { Id = 8, LicensePlate = "O789TU163", Color = "Brown", ModelGenerationId = 8, ModelGeneration = ModelGenerations[7] },
+            new() { Id = 9, LicensePlate = "P321XO163", Color = "White", ModelGenerationId = 9, ModelGeneration = ModelGenerations[8] },
+            new() { Id = 10, LicensePlate = "S654AM163", Color = "Black", ModelGenerationId = 10, ModelGeneration = ModelGenerations[9] },
+            new() { Id = 11, LicensePlate = "T987RE163", Color = "Orange", ModelGenerationId = 11, ModelGeneration = ModelGenerations[10] },
+            new() { Id = 12, LicensePlate = "U246KN163", Color = "White", ModelGenerationId = 12, ModelGeneration = ModelGenerations[11] },
+            new() { Id = 13, LicensePlate = "H135VT163", Color = "Black", ModelGenerationId = 13, ModelGeneration = ModelGenerations[12] },
+            new() { Id = 14, LicensePlate = "SH579SA163", Color = "Gray", ModelGenerationId = 14, ModelGeneration = ModelGenerations[13] },
+            new() { Id = 15, LicensePlate = "SCH864RO163", Color = "Blue", ModelGenerationId = 15, ModelGeneration = ModelGenerations[14] }
         ];
 
-        _customers =
+
+        Clients =
         [
-            new() { CustomerId = 1, DriverLicenseNumber = "7701123456", FullName = "Иван Петров",        DateOfBirth = new DateOnly(1990, 5, 15) },
-            new() { CustomerId = 2, DriverLicenseNumber = "7701234567", FullName = "Мария Сидорова",     DateOfBirth = new DateOnly(1985, 8, 22) },
-            new() { CustomerId = 3, DriverLicenseNumber = "7701345678", FullName = "Алексей Смирнов",    DateOfBirth = new DateOnly(1992, 3, 10) },
-            new() { CustomerId = 4, DriverLicenseNumber = "7701456789", FullName = "Ольга Волкова",      DateOfBirth = new DateOnly(1988, 11, 30) },
-            new() { CustomerId = 5, DriverLicenseNumber = "7701567890", FullName = "Сергей Морозов",     DateOfBirth = new DateOnly(1995, 6, 18) },
-            new() { CustomerId = 6, DriverLicenseNumber = "7701678901", FullName = "Елена Николаева",    DateOfBirth = new DateOnly(1989, 2, 25) },
-            new() { CustomerId = 7, DriverLicenseNumber = "7701789012", FullName = "Дмитрий Соколов",    DateOfBirth = new DateOnly(1987, 9, 12) },
-            new() { CustomerId = 8, DriverLicenseNumber = "7701890123", FullName = "Анна Федорова",      DateOfBirth = new DateOnly(1991, 4, 8) },
-            new() { CustomerId = 9, DriverLicenseNumber = "7701901234", FullName = "Борис Козлов",       DateOfBirth = new DateOnly(1993, 7, 20) },
-            new() { CustomerId = 10,DriverLicenseNumber = "7702012345", FullName = "Валентина Романова", DateOfBirth = new DateOnly(1986, 12, 5) }
+            new() { Id = 1, LicenseNumber = "2023-001", FullName = "Alexander Smirnov", BirthDate = new DateOnly(1988, 3, 15) },
+            new() { Id = 2, LicenseNumber = "2022-045", FullName = "Marina Kovalenko", BirthDate = new DateOnly(1992, 7, 22) },
+            new() { Id = 3, LicenseNumber = "2024-012", FullName = "Denis Popov", BirthDate = new DateOnly(1995, 11, 10) },
+            new() { Id = 4, LicenseNumber = "2021-078", FullName = "Elena Vasnetsova", BirthDate = new DateOnly(1985, 5, 3) },
+            new() { Id = 5, LicenseNumber = "2023-056", FullName = "Igor Kozlovsky",BirthDate = new DateOnly(1990, 9, 30) },
+            new() { Id = 6, LicenseNumber = "2022-123", FullName = "Anna Orlova", BirthDate = new DateOnly(1993, 2, 14) },
+            new() { Id = 7, LicenseNumber = "2024-034", FullName = "Artem Belov", BirthDate = new DateOnly(1987, 8, 18) },
+            new() { Id = 8, LicenseNumber = "2021-099", FullName = "Sofia Grigorieva", BirthDate = new DateOnly(1994, 12, 25) },
+            new() { Id = 9, LicenseNumber = "2023-087", FullName = "Pavel Melnikov", BirthDate = new DateOnly(1991, 6, 7) },
+            new() { Id = 10, LicenseNumber = "2022-067", FullName = "Olga Zakharova", BirthDate = new DateOnly(1989, 4, 12) },
+            new() { Id = 11, LicenseNumber = "2024-005", FullName = "Mikhail Tikhonov", BirthDate = new DateOnly(1996, 10, 28) },
+            new() { Id = 12, LicenseNumber = "2021-112", FullName = "Ksenia Fedorova", BirthDate = new DateOnly(1986, 1, 19) },
+            new() { Id = 13, LicenseNumber = "2023-092", FullName = "Roman Sokolov", BirthDate = new DateOnly(1997, 7, 3) },
+            new() { Id = 14, LicenseNumber = "2022-031", FullName = "Tatiana Krylova", BirthDate = new DateOnly(1984, 3, 22) },
+            new() { Id = 15, LicenseNumber = "2024-021", FullName = "Andrey Davydov", BirthDate = new DateOnly(1998, 11, 15) }
         ];
 
-        _contracts = 
+        Rentals =
         [
-            new() { ContractId = 1,  CarId = 1,  CustomerId = 1,  IssuanceTime = new DateTime(2025, 1, 5, 10, 0, 0), DurationHours = 24, ReturnTime = new DateTime(2025, 1, 6, 10, 0, 0) },
-            new() { ContractId = 2,  CarId = 1,  CustomerId = 1,  IssuanceTime = new DateTime(2025, 1, 20, 14, 0, 0), DurationHours = 8,  ReturnTime = new DateTime(2025, 1, 20, 22, 0, 0) },
-            new() { ContractId = 3,  CarId = 1,  CustomerId = 2,  IssuanceTime = new DateTime(2025, 1, 10, 9, 0, 0),  DurationHours = 48, ReturnTime = new DateTime(2025, 1, 12, 9, 0, 0) },
-            new() { ContractId = 4,  CarId = 2,  CustomerId = 3,  IssuanceTime = new DateTime(2025, 1, 8, 12, 0, 0), DurationHours = 16, ReturnTime = new DateTime(2025, 1, 9, 4, 0, 0) },
-            new() { ContractId = 5,  CarId = 4,  CustomerId = 4,  IssuanceTime = new DateTime(2025, 1, 3, 11, 0, 0), DurationHours = 72, ReturnTime = new DateTime(2025, 1, 6, 11, 0, 0) },
-            new() { ContractId = 6,  CarId = 5,  CustomerId = 5,  IssuanceTime = new DateTime(2025, 1, 15, 8, 0, 0), DurationHours = 24, ReturnTime = new DateTime(2025, 1, 16, 8, 0, 0) },
-            new() { ContractId = 7,  CarId = 6,  CustomerId = 6,  IssuanceTime = new DateTime(2025, 1, 12, 10, 0, 0), DurationHours = 6,  ReturnTime = new DateTime(2025, 1, 12, 16, 0, 0) },
-            new() { ContractId = 8,  CarId = 7,  CustomerId = 7,  IssuanceTime = new DateTime(2025, 1, 18, 15, 0, 0), DurationHours = 12, ReturnTime = new DateTime(2025, 1, 19, 3, 0, 0) },
-            new() { ContractId = 9,  CarId = 8,  CustomerId = 8,  IssuanceTime = new DateTime(2025, 1, 7, 13, 0, 0),  DurationHours = 20, ReturnTime = new DateTime(2025, 1, 8, 9, 0, 0) },
-            new() { ContractId = 10, CarId = 10, CustomerId = 9,  IssuanceTime = new DateTime(2025, 1, 11, 9, 0, 0), DurationHours = 36, ReturnTime = new DateTime(2025, 1, 12, 21, 0, 0) },
-            new() { ContractId = 11, CarId = 3,  CustomerId = 10, IssuanceTime = new DateTime(2025, 1, 14, 12, 0, 0), DurationHours = 8,  ReturnTime = new DateTime(2025, 1, 14, 20, 0, 0) },
-            new() { ContractId = 12, CarId = 4,  CustomerId = 6,  IssuanceTime = new DateTime(2025, 1, 21, 10, 0, 0), DurationHours = 24, ReturnTime = new DateTime(2025, 1, 22, 10, 0, 0) }
-        ];
-    }
-    public List<CarModel> Models => _models;
-    public List<ModelGeneration> Generations => _generations;
-    public List<Car> Cars => _cars;
-    public List<Clients> Customers => _customers;
-    public List<Rental> Contracts => _contracts;
-
-    public CarRentalFixture()
-    {
-        Customers.AddRange(
-        [
-            new() { CustomerId = 1, FullName = "Иван Петров" },
-            new() { CustomerId = 2, FullName = "Мария Сидорова" },
-            new() { CustomerId = 3, FullName = "Алексей Смирнов" },
-            new() { CustomerId = 4, FullName = "Валентина Романова" }
-        ]);
-
-        Cars.AddRange(
-        [
-            new() { CarId = 1, ModelId = 1, GenerationId = 1, LicensePlate = "A111AA", Color = "Белый" },
-            new() { CarId = 2, ModelId = 1, GenerationId = 2, LicensePlate = "A222AA", Color = "Черный" },
-            new() { CarId = 3, ModelId = 2, GenerationId = 3, LicensePlate = "B333BB", Color = "Серый" },
-            new() { CarId = 4, ModelId = 3, GenerationId = 4, LicensePlate = "C444CC", Color = "Красный" },
-            new() { CarId = 5, ModelId = 4, GenerationId = 5, LicensePlate = "D555DD", Color = "Синий" },
-            new() { CarId = 6, ModelId = 5, GenerationId = 6, LicensePlate = "E666EE", Color = "Черный" }
-        ]);
-
-        Contracts.AddRange(
-        [
-            new() { ContractId = 1, CarId = 1, CustomerId = 1, IssuanceTime = new DateTime(2024, 1, 1, 10, 0, 0), DurationHours = 5, ReturnTime = new DateTime(2024, 1, 1, 15, 0, 0) },
-            new() { ContractId = 2, CarId = 1, CustomerId = 2, IssuanceTime = new DateTime(2024, 2, 1, 9, 0, 0), DurationHours = 24, ReturnTime = new DateTime(2024, 2, 2, 9, 0, 0) },
-            new() { ContractId = 3, CarId = 2, CustomerId = 3, IssuanceTime = new DateTime(2024, 3, 1, 12, 0, 0), DurationHours = 10, ReturnTime = new DateTime(2024, 3, 1, 22, 0, 0) },
-            new() { ContractId = 999, CarId = 6, CustomerId = 1, IssuanceTime = new DateTime(2024, 4, 1, 10, 0, 0), DurationHours = 24, ReturnTime = null }
-        ]);
+            new() { Id = 1, CarId = 7, ClientId = 1, RentalDate = new DateTime(2024, 3, 1, 10, 0, 0), RentalHours = 48, Car = Cars[6], Client = Clients[0] },
+            new() { Id = 2, CarId = 7, ClientId = 3, RentalDate = new DateTime(2024, 2, 25, 14, 30, 0), RentalHours = 72, Car = Cars[6], Client = Clients[2] },
+            new() { Id = 3, CarId = 7, ClientId = 5, RentalDate = new DateTime(2024, 2, 20, 9, 15, 0), RentalHours = 24, Car = Cars[6], Client = Clients[4] },
+            new() { Id = 4, CarId = 1, ClientId = 2, RentalDate = new DateTime(2024, 2, 27, 11, 45, 0), RentalHours = 96, Car = Cars[0], Client = Clients[1] },
+            new() { Id = 5, CarId = 1, ClientId = 4, RentalDate = new DateTime(2024, 2, 25, 16, 0, 0), RentalHours = 120, Car = Cars[0], Client = Clients[3] },
+            new() { Id = 6, CarId = 2, ClientId = 6, RentalDate = new DateTime(2024, 2, 23, 13, 20, 0), RentalHours = 72, Car = Cars[1], Client = Clients[5] },
+            new() { Id = 7, CarId = 2, ClientId = 8, RentalDate = new DateTime(2024, 2, 18, 10, 10, 0), RentalHours = 48, Car = Cars[1], Client = Clients[7] },
+            new() { Id = 8, CarId = 3, ClientId = 7, RentalDate = new DateTime(2024, 2, 28, 8, 30, 0), RentalHours = 36, Car = Cars[2], Client = Clients[6] },
+            new() { Id = 9, CarId = 4, ClientId = 9, RentalDate = new DateTime(2024, 2, 15, 12, 0, 0), RentalHours = 96, Car = Cars[3], Client = Clients[8] },
+            new() { Id = 10, CarId = 5, ClientId = 10, RentalDate = new DateTime(2024, 2, 28, 7, 0, 0), RentalHours = 168, Car = Cars[4], Client = Clients[9] },
+            new() { Id = 11, CarId = 6, ClientId = 11, RentalDate = new DateTime(2024, 2, 22, 15, 45, 0), RentalHours = 72, Car = Cars[5], Client = Clients[10] },
+            new() { Id = 12, CarId = 8, ClientId = 12, RentalDate = new DateTime(2024, 2, 26, 9, 20, 0), RentalHours = 48, Car = Cars[7], Client = Clients[11] },
+            new() { Id = 13, CarId = 9, ClientId = 13, RentalDate = new DateTime(2024, 2, 29, 22, 0, 0), RentalHours = 60, Car = Cars[8], Client = Clients[12] },
+            new() { Id = 14, CarId = 10, ClientId = 14, RentalDate = new DateTime(2024, 2, 24, 11, 30, 0), RentalHours = 96, Car = Cars[9], Client = Clients[13] },
+            new() { Id = 15, CarId = 11, ClientId = 15, RentalDate = new DateTime(2024, 2, 10, 14, 15, 0), RentalHours = 120, Car = Cars[10], Client = Clients[14] },
+            new() { Id = 16, CarId = 12, ClientId = 1, RentalDate = new DateTime(2024, 2, 29, 14, 0, 0), RentalHours = 48, Car = Cars[11], Client = Clients[0] },
+            new() { Id = 17, CarId = 13, ClientId = 2, RentalDate = new DateTime(2024, 2, 5, 16, 45, 0), RentalHours = 72, Car = Cars[12], Client = Clients[1] },
+            new() { Id = 18, CarId = 14, ClientId = 3, RentalDate = new DateTime(2024, 2, 12, 10, 10, 0), RentalHours = 36, Car = Cars[13], Client = Clients[2] },
+            new() { Id = 19, CarId = 15, ClientId = 4, RentalDate = new DateTime(2024, 2, 16, 13, 30, 0), RentalHours = 84, Car = Cars[14], Client = Clients[3] }
+       ];
     }
 }

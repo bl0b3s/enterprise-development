@@ -34,11 +34,6 @@ public class Rental
     public required int RentalHours { get; set; }
 
     /// <summary>
-    /// Дата и время возврата (может быть null, если машина ещё в аренде)
-    /// </summary>
-    public required DateTime ReturnTime { get; set; }
-
-    /// <summary>
     /// Ссылка на арендуемый автомобиль
     /// </summary>
     public required Car Car { get; set; }
