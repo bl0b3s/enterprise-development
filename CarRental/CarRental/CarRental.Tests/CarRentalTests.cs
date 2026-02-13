@@ -1,135 +1,131 @@
 using CarRental.Domain_.Data;
-using CarRental.Domain_.Models;
-using Xunit;
 
 namespace CarRental.Tests;
 
 
-// <summary>
-// Юнит-тесты для пункта проката автомобилей
-// </summary>
-// <param name="fixture">Fixture с тестовыми данными</param>
+/// <summary>
+/// Юнит-тесты для пункта проката автомобилей
+/// </summary>
 public class CarRentalTests(CarRentalFixture fixture) : IClassFixture<CarRentalFixture>
 {
-    // <summary>
-    // ТЕСТ 1: Вывести информацию обо всех клиентах, 
-    // которые брали в аренду автомобили указанной модели, упорядочить по ФИО.
-    // </summary>
+    /// <summary>
+    /// ТЕСТ 1: Вывести информацию обо всех клиентах, 
+    /// которые брали в аренду автомобили указанной модели, упорядочить по ФИО.
+    /// </summary>
     [Fact]
-    public void GetCustomersForModel_ShouldReturnCustomersOrderedByName()
+    public void GetClientsByModelSortedByName()
     {
-        const string modelName = "Toyota Camry";
-        const int expectedCount = 4;
-        var expectedNames = new List<string> { "Алексей Смирнов", "Валентина Романова", "Иван Петров", "Мария Сидорова"};
+        const string targetModel = "Lada Vesta";
+        const int expectedCount = 3;
+        const string expectedFirstName = "Alexander Smirnov";
+        const string expectedSecondName = "Denis Popov";
+        const string expectedThirdName = "Igor Kozlovsky";
 
-        //var targetModel = fixture.Models.First(m => m.Name == modelName);
-
-        var customersForModel =
-            (from contract in fixture.Contracts
-             join car in fixture.Cars on contract.CarId equals car.CarId
-             join model in fixture.Models on car.ModelId equals model.ModelId
-             join customer in fixture.Customers on contract.CustomerId equals customer.CustomerId
-             where model.Name == modelName && car.GenerationId is 1 or 2
-             select customer)
+        var clients = fixture.Rentals
+            .Where(r => r.Car.ModelGeneration.Model.Name == targetModel)
+            .Select(r => r.Client)
             .Distinct()
             .OrderBy(c => c.FullName)
             .ToList();
 
-        Assert.Equal(expectedCount, customersForModel.Count);
-        Assert.Equal(expectedNames, customersForModel.Select(c => c.FullName));
+        Assert.Equal(expectedCount, clients.Count);
+        Assert.Equal(expectedFirstName, clients[0].FullName);
+        Assert.Equal(expectedSecondName, clients[1].FullName);
+        Assert.Equal(expectedThirdName, clients[2].FullName);
     }
 
-    // <summary>
-    // ТЕСТ 2: Вывести информацию об автомобилях, находящихся в аренде.
-    // </summary>
+    /// <summary>
+    /// ТЕСТ 2: Вывести информацию об автомобилях, находящихся в аренде.
+    /// </summary>
     [Fact]
-    public void GetCarsInRental_ShouldReturnCarsWithoutReturnTime()
+    public void GetCurrentlyRentedCars()
     {
-        var carsInRental = fixture.Contracts
-            .Where(c => c.ReturnTime == null)
-            .Select(c => fixture.Cars.First(car => car.CarId == c.CarId))
+        var testDate = new DateTime(2024, 3, 5, 12, 0, 0);
+        var expectedPlate = "K234MR163";
+
+        var rentedCars = fixture.Rentals
+            .Where(r => r.RentalDate.AddHours(r.RentalHours) > testDate)
+            .Select(r => r.Car)
             .Distinct()
             .ToList();
 
-        Assert.NotEmpty(carsInRental);
-        Assert.Contains(carsInRental, c => c.CarId == 6);
-
+        Assert.Contains(rentedCars, c => c.LicensePlate == expectedPlate);
     }
 
-    // <summary>
-    // ТЕСТ 3: Вывести топ 5 наиболее часто арендуемых автомобилей.
-    // </summary>
+    /// <summary>
+    /// ТЕСТ 3: Вывести топ 5 наиболее часто арендуемых автомобилей.
+    /// </summary>
     [Fact]
-    public void GetTop5MostRentedCars_ShouldReturnTopCars()
+    public void GetTop5MostRentedCars()
     {
-        var top5Cars = fixture.Contracts
-            .GroupBy(c => c.CarId)
-            .OrderByDescending(g => g.Count())
+        const int expectedCount = 5;
+        const string expectedTopCarPlate = "N456RS163";
+        const int expectedTopCarRentalCount = 3;
+
+        var topCars = fixture.Rentals
+            .GroupBy(r => r.Car)
+            .Select(g => new { Car = g.Key, RentalCount = g.Count() })
+            .OrderByDescending(x => x.RentalCount)
             .Take(5)
-            .Select(g => new
-            {
-                Car = fixture.Cars.First(c => c.CarId == g.Key),
-                RentalCount = g.Count()
-            })
             .ToList();
 
-        Assert.NotEmpty(top5Cars);
-        Assert.True(top5Cars.Count <= 5);
-        Assert.Contains(top5Cars, x => x.Car.CarId == 1);
+        Assert.Equal(expectedCount, topCars.Count);
+        Assert.Equal(expectedTopCarPlate, topCars[0].Car.LicensePlate);
+        Assert.Equal(expectedTopCarRentalCount, topCars[0].RentalCount);
     }
 
     /// <summary>
     /// ТЕСТ 4: Для каждого автомобиля вывести число аренд.
     /// </summary>
     [Fact]
-    public void GetRentalCountPerCar_ShouldReturnCorrectCounts()
+    public void GetRentalCountPerCar()
     {
-        var rentalCountPerCar = fixture.Contracts
-            .GroupBy(c => c.CarId)
-            .Select(g => new
+        const int expectedTotalCars = 15;
+        const int expectedLadaVestaRentalCount = 3;
+        const int expectedBmwRentalCount = 2;
+        const int ladaVestaCarId = 7;
+        const int bmwCarId = 1;
+
+        var carsWithRentalCount = fixture.Cars
+            .Select(car => new
             {
-                Car = fixture.Cars.First(c => c.CarId == g.Key),
-                RentalCount = g.Count()
+                Car = car,
+                RentalCount = fixture.Rentals.Count(r => r.CarId == car.Id)
             })
-            .OrderBy(x => x.Car.CarId)
             .ToList();
 
-        Assert.NotEmpty(rentalCountPerCar);
-        var car1Rentals = rentalCountPerCar.First(x => x.Car.CarId == 1);
-        Assert.Equal(3, car1Rentals.RentalCount);
+        Assert.Equal(expectedTotalCars, carsWithRentalCount.Count);
 
-        var car4Rentals = rentalCountPerCar.First(x => x.Car.CarId == 4);
-        Assert.Equal(2, car4Rentals.RentalCount);
+        var ladaVesta = carsWithRentalCount.First(c => c.Car.Id == ladaVestaCarId);
+        var bmw = carsWithRentalCount.First(c => c.Car.Id == bmwCarId);
+
+        Assert.Equal(expectedLadaVestaRentalCount, ladaVesta.RentalCount);
+        Assert.Equal(expectedBmwRentalCount, bmw.RentalCount);
+        Assert.True(carsWithRentalCount.All(x => x.RentalCount >= 0));
     }
 
-    /// <summary>
-    /// ТЕСТ 5: Вывести топ 5 клиентов по сумме аренды.
-    /// </summary>
-    [Fact]
-    public void GetTop5CustomersByRentalCost_ShouldReturnTopCustomers()
+        /// <summary>
+        /// ТЕСТ 5: Вывести топ 5 клиентов по сумме аренды.
+        /// </summary>
+        [Fact]
+    public void GetTop5ClientsByRentalAmount()
     {
-        var top5CustomersBySpent = fixture.Contracts
-            .GroupBy(c => c.CustomerId)
+        const int expectedCount = 5;
+        const string expectedTopClientName = "Olga Zakharova";
+
+        var topClients = fixture.Rentals
+            .GroupBy(r => r.Client)
             .Select(g => new
             {
-                Customer = fixture.Customers.First(cust => cust.CustomerId == g.Key),
-                TotalSpent = g.Sum(c =>
-                {
-                    var car = fixture.Cars.First(car => car.CarId == c.CarId);
-                    var generation = fixture.Generations.First(gen => gen.GenerationId == car.GenerationId);
-                    return (decimal)(c.DurationHours * (double)generation.HourlyRate);
-                })
+                Client = g.Key,
+                TotalAmount = g.Sum(r => r.RentalHours * r.Car.ModelGeneration.RentalPricePerHour)
             })
-            .OrderByDescending(x => x.TotalSpent)
+            .OrderByDescending(x => x.TotalAmount)
             .Take(5)
             .ToList();
 
-        Assert.NotEmpty(top5CustomersBySpent);
-        Assert.True(top5CustomersBySpent.Count <= 5);
-        if (top5CustomersBySpent.Count > 1)
-        {
-            Assert.True(top5CustomersBySpent[0].TotalSpent >= top5CustomersBySpent[1].TotalSpent);
-        }
+        Assert.Equal(expectedCount, topClients.Count);
+        Assert.Equal(expectedTopClientName, topClients[0].Client.FullName);
     }
 }
 
