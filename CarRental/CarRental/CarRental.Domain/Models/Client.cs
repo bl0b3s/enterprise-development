@@ -8,7 +8,7 @@ public class Client
     /// <summary>
     /// Уникальный ID клиента
     /// </summary>
-    public required int Id { get; set; }
+    public int Id { get; set; }
 
     /// <summary>
     /// Номер водительского удостоверения (уникален)
@@ -23,10 +23,5 @@ public class Client
     /// <summary>
     /// Дата рождения
     /// </summary>
-    public required DateOnly DateOfBirth { get; set; }
-
-    /// <summary>
-    /// История аренд этого клиента
-    /// </summary>
-    public List<RentalContract> RentalContracts { get; set; } = new ();
+    public required DateOnly BirthDate { get; set; }
 }

@@ -13,18 +13,18 @@ public class CarRentalFixture
     public List<ModelGeneration> _generations;
     public List<Car> _cars;
     public List<Clients> _customers;
-    public List<RentalContract> _contracts;
+    public List<Rental> _contracts;
 
     public CarRentalFixture()
     {
         _models =
         [
 
-            new() { ModelId = 1, Name = "Toyota Camry", DriveType = DriveType.FrontWheelDrive, SeatsCount = 5, BodyType = BodyType.Sedan, CarClass = CarClass.Middle },
-            new() { ModelId = 2, Name = "BMW X5",        DriveType = DriveType.AllWheelDrive,   SeatsCount = 7, BodyType = BodyType.SUV,   CarClass = CarClass.Premium },
-            new() { ModelId = 3, Name = "Volkswagen Golf", DriveType = DriveType.FrontWheelDrive, SeatsCount = 5, BodyType = BodyType.Hatchback, CarClass = CarClass.Economy },
-            new() { ModelId = 4, Name = "Audi A6",      DriveType = DriveType.AllWheelDrive,   SeatsCount = 5, BodyType = BodyType.Sedan, CarClass = CarClass.Premium },
-            new() { ModelId = 5, Name = "Mercedes C-Class", DriveType = DriveType.RearWheelDrive, SeatsCount = 5, BodyType = BodyType.Sedan, CarClass = CarClass.Premium }
+            new() { ModelId = 1, Name = "Toyota Camry", DriveType = DriveType.FrontWheelDrive, SeatsCount = 5, BodyType = BodyType.Sedan, Class = CarClass.Middle },
+            new() { ModelId = 2, Name = "BMW X5",        DriveType = DriveType.AllWheelDrive,   SeatsCount = 7, BodyType = BodyType.SUV,   Class = CarClass.Premium },
+            new() { ModelId = 3, Name = "Volkswagen Golf", DriveType = DriveType.FrontWheelDrive, SeatsCount = 5, BodyType = BodyType.Hatchback, Class = CarClass.Economy },
+            new() { ModelId = 4, Name = "Audi A6",      DriveType = DriveType.AllWheelDrive,   SeatsCount = 5, BodyType = BodyType.Sedan, Class = CarClass.Premium },
+            new() { ModelId = 5, Name = "Mercedes C-Class", DriveType = DriveType.RearWheelDrive, SeatsCount = 5, BodyType = BodyType.Sedan, Class = CarClass.Premium }
         ];
 
         _generations =
@@ -86,7 +86,7 @@ public class CarRentalFixture
     public List<ModelGeneration> Generations => _generations;
     public List<Car> Cars => _cars;
     public List<Clients> Customers => _customers;
-    public List<RentalContract> Contracts => _contracts;
+    public List<Rental> Contracts => _contracts;
 
     public CarRentalFixture()
     {

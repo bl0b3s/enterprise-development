@@ -8,7 +8,7 @@ public class CarModel
     /// <summary>
     /// Уникальный идентификатор модели
     /// </summary>
-    public required int Id { get; set; }
+    public int Id { get; set; }
 
     /// <summary>
     /// Название модели (например, "Toyota Camry")
@@ -18,7 +18,7 @@ public class CarModel
     /// <summary>
     /// Тип привода
     /// </summary>
-    public required DriveType DriveType { get; set; }
+    public required string DriveType { get; set; }
 
     /// <summary>
     /// Количество посадочных мест
@@ -28,16 +28,11 @@ public class CarModel
     /// <summary>
     /// Тип кузова
     /// </summary>
-    public required BodyType BodyType { get; set; }
+    public required string BodyType { get; set; }
 
     /// <summary>
     /// Класс автомобиля
     /// </summary>
-    public required CarClass CarClass { get; set; }
-
-    /// <summary>
-    /// Коллекция поколений этой модели
-    /// </summary>
-    public List<ModelGeneration> Generations { get; set; } = new ();
+    public required string Class { get; set; }
 }
 

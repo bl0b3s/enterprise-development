@@ -2,7 +2,6 @@
 
 /// <summary>
 /// Поколение модели (справочник)
-/// Пример: Toyota Camry 2020, Toyota Camry 2022
 /// </summary>
 public class ModelGeneration
 {
@@ -29,7 +28,7 @@ public class ModelGeneration
     /// <summary>
     /// Тип коробки передач
     /// </summary>
-    public required TransmissionType Transmission { get; set; }
+    public required string Transmission { get; set; }
 
     /// <summary>
     /// Стоимость аренды в час
@@ -39,10 +38,5 @@ public class ModelGeneration
     /// <summary>
     /// Ссылка на модель (навигационное свойство)
     /// </summary>
-    public CarModel? Model { get; set; }
-
-    /// <summary>
-    /// Коллекция автомобилей этого поколения
-    /// </summary>
-    public List<Car> Cars { get; set; } = new ();
+    public required CarModel Model { get; set; }
 }

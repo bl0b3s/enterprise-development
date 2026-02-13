@@ -8,7 +8,7 @@ public class Car
     /// <summary>
     /// Уникальный ID автомобиля в парке
     /// </summary>
-    public required int Id { get; set; }
+    public int Id { get; set; }
 
     /// <summary>
     /// Внешний ключ на поколение модели
@@ -28,11 +28,6 @@ public class Car
     /// <summary>
     /// Ссылка на поколение модели этого автомобиля
     /// </summary>
-    public ModelGeneration? ModelGeneration { get; set; }
-
-    /// <summary>
-    /// История аренд этого автомобиля
-    /// </summary>
-    public List<RentalContract> RentalContracts { get; set; } = new ();
+    public required ModelGeneration ModelGeneration { get; set; }
 }
 

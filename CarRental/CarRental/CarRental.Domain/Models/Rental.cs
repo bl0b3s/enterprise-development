@@ -6,12 +6,12 @@ namespace CarRental.Domain_.Models;
 /// Договор аренды (контракт)
 /// Фиксирует факт выдачи автомобиля клиенту
 /// </summary>
-public class RentalContract
+public class Rental
 {
     /// <summary>
     /// Уникальный ID контракта
     /// </summary>
-    public required int Id { get; set; }
+    public int Id { get; set; }
 
     /// <summary>
     /// Внешний ключ на автомобиль
@@ -36,15 +36,15 @@ public class RentalContract
     /// <summary>
     /// Дата и время возврата (может быть null, если машина ещё в аренде)
     /// </summary>
-    public DateTime? ReturnTime { get; set; }
+    public required DateTime ReturnTime { get; set; }
 
     /// <summary>
     /// Ссылка на арендуемый автомобиль
     /// </summary>
-    public Car? Car { get; set; }
+    public required Car Car { get; set; }
 
     /// <summary>
     /// Ссылка на клиента, арендовавшего машину
     /// </summary>
-    public Client? Client { get; set; }
+    public required Client Client { get; set; }
 }
