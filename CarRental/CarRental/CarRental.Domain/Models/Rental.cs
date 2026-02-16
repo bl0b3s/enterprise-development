@@ -1,6 +1,4 @@
-﻿using CarRental.Domain_.Models;
-
-namespace CarRental.Domain_.Models;
+﻿namespace CarRental.Domain.Models;
 
 /// <summary>
 /// Договор аренды (контракт)

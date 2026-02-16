@@ -1,4 +1,4 @@
-﻿namespace CarRental.Domain_.Models;
+﻿namespace CarRental.Domain.Models;
 
 /// <summary>
 /// Модель автомобиля (справочник)

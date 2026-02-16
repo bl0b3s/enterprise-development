@@ -1,4 +1,4 @@
 <Solution>
-  <Project Path="CarRental.Domain/CarRental.Domain..csproj" Id="24e6148c-40eb-43e8-bddd-c8717a923d97" />
+  <Project Path="CarRental.Domain/CarRental.Domain.csproj" Id="24e6148c-40eb-43e8-bddd-c8717a923d97" />
   <Project Path="CarRental.Tests/CarRental.Tests.csproj" Id="05dfe8e7-cd31-4e99-bb9a-102bf288d7b5" />
 </Solution>

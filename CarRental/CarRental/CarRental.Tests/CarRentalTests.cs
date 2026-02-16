@@ -1,4 +1,4 @@
-using CarRental.Domain_.Data;
+using CarRental.Domain.Data;
 
 namespace CarRental.Tests;
 
@@ -104,10 +104,10 @@ public class CarRentalTests(CarRentalFixture fixture) : IClassFixture<CarRentalF
         Assert.True(carsWithRentalCount.All(x => x.RentalCount >= 0));
     }
 
-        /// <summary>
-        /// ТЕСТ 5: Вывести топ 5 клиентов по сумме аренды.
-        /// </summary>
-        [Fact]
+    /// <summary>
+    /// ТЕСТ 5: Вывести топ 5 клиентов по сумме аренды.
+    /// </summary>
+    [Fact]
     public void GetTop5ClientsByRentalAmount()
     {
         const int expectedCount = 5;

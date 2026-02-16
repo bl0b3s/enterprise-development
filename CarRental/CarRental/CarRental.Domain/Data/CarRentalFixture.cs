@@ -1,6 +1,6 @@
-﻿using CarRental.Domain_.Models;
+﻿using CarRental.Domain.Models;
 
-namespace CarRental.Domain_.Data;
+namespace CarRental.Domain.Data;
 
 
 /// <summary>
