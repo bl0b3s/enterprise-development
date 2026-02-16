@@ -1,4 +1,5 @@
 ﻿using CarRental.Domain.Models;
+using CarRental.Domain.Enums;
 
 namespace CarRental.Tests;
 
