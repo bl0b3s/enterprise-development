@@ -4,7 +4,7 @@ on:
   push:
     branches: [ main, lab_1 ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, lab_1 ]
 
 jobs:
   test:
@@ -20,10 +20,10 @@ jobs:
           dotnet-version: 8.0.x
 
       - name: Restore dependencies
-        run: dotnet restore ./CarRental/CarRental.sln
+        run: dotnet restore ./CarRental/CarRental.slnx
 
       - name: Build
-        run: dotnet build ./CarRental/CarRental.sln --no-restore --configuration Release
+        run: dotnet build ./CarRental/CarRental.slnx --no-restore --configuration Release
 
       - name: Test
         run: dotnet test ./CarRental/CarRental.Tests/CarRental.Tests.csproj --configuration Release --verbosity normal
