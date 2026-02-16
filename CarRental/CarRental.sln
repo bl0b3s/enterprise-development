@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35122.118
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarRental.Domain", "CarRental.Domain\CarRental.Domain.csproj", "{2EF714F9-3283-45EB-8C57-D6109531F46B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarRental.Tests", "CarRental.Tests\CarRental.Tests.csproj", "{134839E5-014D-4CF4-825C-387251D4216C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CD66114E-38DD-4497-A835-343983BA4262}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD66114E-38DD-4497-A835-343983BA4262}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD66114E-38DD-4497-A835-343983BA4262}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD66114E-38DD-4497-A835-343983BA4262}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2EF714F9-3283-45EB-8C57-D6109531F46B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EF714F9-3283-45EB-8C57-D6109531F46B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EF714F9-3283-45EB-8C57-D6109531F46B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EF714F9-3283-45EB-8C57-D6109531F46B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{134839E5-014D-4CF4-825C-387251D4216C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{134839E5-014D-4CF4-825C-387251D4216C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{134839E5-014D-4CF4-825C-387251D4216C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{134839E5-014D-4CF4-825C-387251D4216C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {311FD1FC-B518-4A98-ADF2-DCD3E2A70164}
+	EndGlobalSection
+EndGlobal
