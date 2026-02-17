@@ -16,7 +16,7 @@ public class CarModel : Model
     /// <summary>
     /// Type of drivetrain
     /// </summary>
-    public required DriverType DriveType { get; set; }
+    public required DriverType DriverType { get; set; }
 
     /// <summary>
     /// Number of seats (including driver)

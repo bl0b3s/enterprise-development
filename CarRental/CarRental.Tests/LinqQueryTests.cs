@@ -1,4 +1,4 @@
-namespace CarRental.Tests;
+п»їnamespace CarRental.Tests;
 
 /// <summary>
 /// Tests for car rental functionalities.
@@ -15,9 +15,9 @@ public class LinqQueryTests(CarRentalDataFixture testData) : IClassFixture<CarRe
 
         var expectedFullNames = new List<string>
         {
-            "Иванов Иван Иванович",
-            "Кузнецова Мария Дмитриевна",
-            "Сидоров Алексей Петрович"
+            "РРІР°РЅРѕРІ РРІР°РЅ РРІР°РЅРѕРІРёС‡",
+            "РљСѓР·РЅРµС†РѕРІР° РњР°СЂРёСЏ Р”РјРёС‚СЂРёРµРІРЅР°",
+            "РЎРёРґРѕСЂРѕРІ РђР»РµРєСЃРµР№ РџРµС‚СЂРѕРІРёС‡"
         };
 
         var actualFullNames = testData.Rentals
@@ -49,8 +49,8 @@ public class LinqQueryTests(CarRentalDataFixture testData) : IClassFixture<CarRe
 
         var expectedPlates = new List<string>
         {
-            "А123ВС 777",
-            "Е789КХ 777"
+            "Рђ123Р’РЎ 777",
+            "Р•789РљРҐ 777"
         };
 
         var actualPlates = testData.Rentals
@@ -73,11 +73,11 @@ public class LinqQueryTests(CarRentalDataFixture testData) : IClassFixture<CarRe
     {
         var expectedPlates = new List<string>
         {
-            "А123ВС 777",
-            "Е789КХ 777",
-            "В456ОР 777",
-            "К001МР 777",
-            "М234ТН 777"
+            "Рђ123Р’РЎ 777",
+            "Р•789РљРҐ 777",
+            "Р’456РћР  777",
+            "Рљ001РњР  777",
+            "Рњ234РўРќ 777"
         };
 
         var actualPlates = testData.Rentals
@@ -107,13 +107,13 @@ public class LinqQueryTests(CarRentalDataFixture testData) : IClassFixture<CarRe
     {
         var expected = new Dictionary<string, int>
         {
-            { "А123ВС 777", 3 },
-            { "В456ОР 777", 1 },
-            { "Е789КХ 777", 2 },
-            { "К001МР 777", 1 },
-            { "М234ТН 777", 1 },
-            { "Н567УХ 777", 1 },
-            { "О890ЦВ 777", 1 }
+            { "Рђ123Р’РЎ 777", 3 },
+            { "Р’456РћР  777", 1 },
+            { "Р•789РљРҐ 777", 2 },
+            { "Рљ001РњР  777", 1 },
+            { "Рњ234РўРќ 777", 1 },
+            { "Рќ567РЈРҐ 777", 1 },
+            { "Рћ890Р¦Р’ 777", 1 }
         };
 
         var actual = testData.Rentals
@@ -137,11 +137,11 @@ public class LinqQueryTests(CarRentalDataFixture testData) : IClassFixture<CarRe
     {
         var expectedFullNames = new List<string>
         {
-            "Иванов Иван Иванович",
-            "Петрова Анна Сергеевна",
-            "Кузнецова Мария Дмитриевна",
-            "Сидоров Алексей Петрович",
-            "Смирнов Дмитрий Александрович"
+            "РРІР°РЅРѕРІ РРІР°РЅ РРІР°РЅРѕРІРёС‡",
+            "РџРµС‚СЂРѕРІР° РђРЅРЅР° РЎРµСЂРіРµРµРІРЅР°",
+            "РљСѓР·РЅРµС†РѕРІР° РњР°СЂРёСЏ Р”РјРёС‚СЂРёРµРІРЅР°",
+            "РЎРёРґРѕСЂРѕРІ РђР»РµРєСЃРµР№ РџРµС‚СЂРѕРІРёС‡",
+            "РЎРјРёСЂРЅРѕРІ Р”РјРёС‚СЂРёР№ РђР»РµРєСЃР°РЅРґСЂРѕРІРёС‡"
         };
 
         var actualFullNames = testData.Rentals
