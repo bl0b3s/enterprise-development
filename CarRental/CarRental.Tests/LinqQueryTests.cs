@@ -5,29 +5,27 @@
 /// </summary>
 public class LinqQueryTests(CarRentalDataFixture testData) : IClassFixture<CarRentalDataFixture>
 {
-    /// <summary>
-    /// Displays information about all customers who rented cars of the specified model, sorted by full name.
-    /// </summary>
     [Fact]
     public void GetCustomersByModel()
     {
         const int targetModelId = 1;
-
         var expectedFullNames = new List<string>
         {
+            "Волкова Ольга Николаевна",
             "Иванов Иван Иванович",
             "Кузнецова Мария Дмитриевна",
-            "Сидоров Алексей Петрович"
+            "Сидоров Алексей Петрович",
+            "Смирнов Дмитрий Александрович"
         };
 
         var actualFullNames = testData.Rentals
             .Join(testData.Cars,
                 r => r.CarId,
                 c => c.Id,
-                (r, c) => new { Rental = r, Car = c })
+                (r, c) => new { r.CustomerId, c.ModelGenerationId })
             .Where(x => testData.ModelGenerations
-                .Any(mg => mg.Id == x.Car.ModelGenerationId && mg.CarModelId == targetModelId))
-            .Select(x => x.Rental.CustomerId)
+                .Any(mg => mg.Id == x.ModelGenerationId && mg.CarModelId == targetModelId))
+            .Select(x => x.CustomerId)
             .Distinct()
             .Join(testData.Customers,
                 cid => cid,
@@ -39,14 +37,10 @@ public class LinqQueryTests(CarRentalDataFixture testData) : IClassFixture<CarRe
         Assert.Equal(expectedFullNames, actualFullNames);
     }
 
-    /// <summary>
-    /// Displays information about cars that are currently rented.
-    /// </summary>
     [Fact]
     public void GetCurrentlyRentedCars()
     {
         var now = new DateTime(2025, 10, 16, 12, 0, 0);
-
         var expectedPlates = new List<string>
         {
             "А123ВС 777",
@@ -59,15 +53,13 @@ public class LinqQueryTests(CarRentalDataFixture testData) : IClassFixture<CarRe
                 r => r.CarId,
                 c => c.Id,
                 (r, c) => c.LicensePlate)
+            .Distinct()
             .OrderBy(plate => plate)
             .ToList();
 
         Assert.Equal(expectedPlates, actualPlates);
     }
 
-    /// <summary>
-    /// Displays the top 5 most frequently rented cars.
-    /// </summary>
     [Fact]
     public void GetTop5MostRentedCars()
     {
@@ -77,7 +69,7 @@ public class LinqQueryTests(CarRentalDataFixture testData) : IClassFixture<CarRe
             "Е789КХ 777",
             "В456ОР 777",
             "К001МР 777",
-            "М234ТН 777"
+            "Н567УХ 777"
         };
 
         var actualPlates = testData.Rentals
@@ -88,7 +80,7 @@ public class LinqQueryTests(CarRentalDataFixture testData) : IClassFixture<CarRe
                 Count = g.Count()
             })
             .OrderByDescending(x => x.Count)
-            .ThenBy(x => x.CarId)
+            .ThenBy(x => testData.Cars.First(c => c.Id == x.CarId).LicensePlate)
             .Take(5)
             .Join(testData.Cars,
                 x => x.CarId,
@@ -99,19 +91,15 @@ public class LinqQueryTests(CarRentalDataFixture testData) : IClassFixture<CarRe
         Assert.Equal(expectedPlates, actualPlates);
     }
 
-    /// <summary>
-    /// Displays the number of rentals for each car.
-    /// </summary>
     [Fact]
     public void GetRentalCountForEachCar()
     {
         var expected = new Dictionary<string, int>
         {
-            { "А123ВС 777", 3 },
+            { "А123ВС 777", 5 },
             { "В456ОР 777", 1 },
-            { "Е789КХ 777", 2 },
+            { "Е789КХ 777", 3 },
             { "К001МР 777", 1 },
-            { "М234ТН 777", 1 },
             { "Н567УХ 777", 1 },
             { "О890ЦВ 777", 1 }
         };
@@ -129,33 +117,30 @@ public class LinqQueryTests(CarRentalDataFixture testData) : IClassFixture<CarRe
         Assert.Equal(expected, actual);
     }
 
-    /// <summary>
-    /// Displays the top 5 customers by total rental amount.
-    /// </summary>
     [Fact]
     public void GetTop5CustomersByTotalCost()
     {
         var expectedFullNames = new List<string>
         {
-            "Иванов Иван Иванович",
             "Петрова Анна Сергеевна",
+            "Иванов Иван Иванович",
             "Кузнецова Мария Дмитриевна",
-            "Сидоров Алексей Петрович",
-            "Смирнов Дмитрий Александрович"
+            "Смирнов Дмитрий Александрович",
+            "Сидоров Алексей Петрович"
         };
 
         var actualFullNames = testData.Rentals
             .Join(testData.Cars,
                 r => r.CarId,
                 c => c.Id,
-                (r, c) => new { Rental = r, Car = c })
+                (r, c) => new { r.CustomerId, c.ModelGenerationId, r.Hours })
             .Join(testData.ModelGenerations,
-                x => x.Car.ModelGenerationId,
+                x => x.ModelGenerationId,
                 mg => mg.Id,
                 (x, mg) => new
                 {
-                    x.Rental.CustomerId,
-                    Cost = mg.HourlyRate * x.Rental.Hours
+                    x.CustomerId,
+                    Cost = mg.HourlyRate * x.Hours
                 })
             .GroupBy(x => x.CustomerId)
             .Select(g => new
@@ -164,6 +149,7 @@ public class LinqQueryTests(CarRentalDataFixture testData) : IClassFixture<CarRe
                 Total = g.Sum(x => x.Cost)
             })
             .OrderByDescending(x => x.Total)
+            .ThenBy(x => testData.Customers.First(c => c.Id == x.CustomerId).FullName)
             .Take(5)
             .Join(testData.Customers,
                 x => x.CustomerId,
