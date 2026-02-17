@@ -10,11 +10,11 @@ public class CarRentalDataFixture
 {
     public List<CarModel> CarModels { get; } = new()
     {
-        new() { Id = 1, Name = "Toyota Camry", DriveType = DriveType.FrontWheelDrive, SeatingCapacity = 5, BodyType = BodyType.Sedan, CarClass = CarClass.Intermediate },
-        new() { Id = 2, Name = "Kia Rio", DriveType = DriveType.FrontWheelDrive, SeatingCapacity = 5, BodyType = BodyType.Hatchback, CarClass = CarClass.Economy },
-        new() { Id = 3, Name = "BMW X5", DriveType = DriveType.AllWheelDrive, SeatingCapacity = 5, BodyType = BodyType.SUV, CarClass = CarClass.Premium },
-        new() { Id = 4, Name = "Hyundai Solaris", DriveType = DriveType.FrontWheelDrive, SeatingCapacity = 5, BodyType = BodyType.Sedan, CarClass = CarClass.Economy },
-        new() { Id = 5, Name = "Volkswagen Tiguan", DriveType = DriveType.AllWheelDrive, SeatingCapacity = 5, BodyType = BodyType.Crossover, CarClass = CarClass.Intermediate },
+        new() { Id = 1, Name = "Toyota Camry", DriverType = DriverType.FrontWheelDrive, SeatingCapacity = 5, BodyType = BodyType.Sedan, CarClass = CarClass.Intermediate },
+        new() { Id = 2, Name = "Kia Rio", DriverType = DriverType.FrontWheelDrive, SeatingCapacity = 5, BodyType = BodyType.Hatchback, CarClass = CarClass.Economy },
+        new() { Id = 3, Name = "BMW X5", DriverType = DriverType.AllWheelDrive, SeatingCapacity = 5, BodyType = BodyType.SUV, CarClass = CarClass.Premium },
+        new() { Id = 4, Name = "Hyundai Solaris", DriverType = DriverType.FrontWheelDrive, SeatingCapacity = 5, BodyType = BodyType.Sedan, CarClass = CarClass.Economy },
+        new() { Id = 5, Name = "Volkswagen Tiguan", DriverType = DriverType.AllWheelDrive, SeatingCapacity = 5, BodyType = BodyType.Crossover, CarClass = CarClass.Intermediate },
     };
 
     public List<ModelGeneration> ModelGenerations { get; } = new()
