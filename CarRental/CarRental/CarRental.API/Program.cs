@@ -63,7 +63,7 @@ using (var scope = app.Services.CreateScope())
     if (!db.CarModels.Any())
     {
         Console.WriteLine("Seeding database...");
-        var testData = new CarRental.Domain.Data.TestData();
+        var testData = new CarRental.Domain.Data.CarRentalFixture();
 
         db.CarModels.AddRange(testData.CarModels);
         db.Clients.AddRange(testData.Clients);

@@ -1,8 +1,9 @@
 <Solution>
-  <Project Path="../../../../../../../../ShalanRep/enterprise-development/CarRental/CarRental/CarRental.API/CarRental.API.csproj" Id="e236ffe2-ae18-487d-a1b4-a35e80ab17ac" />
-  <Project Path="../../../../../../../../ShalanRep/enterprise-development/CarRental/CarRental/CarRental.Application.Contracts/CarRental.Application.Contracts.csproj" Id="6c3f7e9d-205d-42b5-8be1-995480754047" />
-  <Project Path="../../../../../../../../ShalanRep/enterprise-development/CarRental/CarRental/CarRental.Domain/CarRental.Domain.csproj" Id="24e6148c-40eb-43e8-bddd-c8717a923d97" />
-  <Project Path="../../../../../../../../ShalanRep/enterprise-development/CarRental/CarRental/CarRental.Infrastructure/CarRental.Infrastructure.csproj" Id="58c17c96-71c4-4594-ae5e-7b44cd3d317e" />
-  <Project Path="../../../../../../../../ShalanRep/enterprise-development/CarRental/CarRental/CarRental.ServiceDefaults/CarRental.ServiceDefaults.csproj" Id="b92c134d-6975-4892-9013-bb3c3ba26900" />
-  <Project Path="../../../../../../../../ShalanRep/enterprise-development/CarRental/CarRental/CarRental.Tests/CarRental.Tests.csproj" Id="05dfe8e7-cd31-4e99-bb9a-102bf288d7b5" />
+  <Project Path="AspireApp1/AspireApp1.AppHost/CarRental.AppHost.csproj" Id="8b646ae7-1b61-416e-b1b0-9e0d4d943503" />
+  <Project Path="CarRental.API/CarRental.API.csproj" Id="e236ffe2-ae18-487d-a1b4-a35e80ab17ac" />
+  <Project Path="CarRental.Application.Contracts/CarRental.Application.Contracts.csproj" Id="6c3f7e9d-205d-42b5-8be1-995480754047" />
+  <Project Path="CarRental.Domain/CarRental.Domain.csproj" Id="24e6148c-40eb-43e8-bddd-c8717a923d97" />
+  <Project Path="CarRental.Infrastructure/CarRental.Infrastructure.csproj" Id="58c17c96-71c4-4594-ae5e-7b44cd3d317e" />
+  <Project Path="CarRental.ServiceDefaults/CarRental.ServiceDefaults.csproj" Id="b92c134d-6975-4892-9013-bb3c3ba26900" />
+  <Project Path="CarRental.Tests/CarRental.Tests.csproj" Id="05dfe8e7-cd31-4e99-bb9a-102bf288d7b5" />
 </Solution>
