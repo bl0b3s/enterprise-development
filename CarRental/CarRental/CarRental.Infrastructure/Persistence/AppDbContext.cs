@@ -1,9 +1,10 @@
+using CarRental.Domain.Data;
 using CarRental.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace CarRental.Infrastructure.Persistence;
 
-public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
+public class AppDbContext(DbContextOptions<AppDbContext> options, CarRentalFixture fixture) : DbContext(options)
 {
     public DbSet<Car> Cars { get; set; }
     public DbSet<Client> Clients { get; set; }
@@ -51,5 +52,11 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
 
         modelBuilder.Entity<CarModel>()
             .HasKey(cm => cm.Id);
+
+        modelBuilder.Entity<Car>().HasData(fixture.Cars);
+        modelBuilder.Entity<CarModel>().HasData(fixture.CarModels);
+        modelBuilder.Entity<Client>().HasData(fixture.Clients);
+        modelBuilder.Entity<ModelGeneration>().HasData(fixture.ModelGenerations);
+        modelBuilder.Entity<Rental>().HasData(fixture.Rentals);
     }
 }

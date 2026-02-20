@@ -2,7 +2,6 @@
 
 namespace CarRental.Domain.Data;
 
-
 /// <summary>
 /// Fixture с тестовыми данными
 /// </summary>
@@ -38,40 +37,40 @@ public class CarRentalFixture
 
         ModelGenerations =
         [
-            new() { Id = 1, Year = 2023, EngineVolume = 2.0, Transmission = "AT", RentalPricePerHour = 2200, ModelId = 1, Model = CarModels[0] },
-            new() { Id = 2, Year = 2022, EngineVolume = 5.0, Transmission = "AT", RentalPricePerHour = 5000, ModelId = 2, Model = CarModels[1] },
-            new() { Id = 3, Year = 2024, EngineVolume = 1.5, Transmission = "CVT", RentalPricePerHour = 1200, ModelId = 3, Model = CarModels[2] },
-            new() { Id = 4, Year = 2023, EngineVolume = 3.6, Transmission = "AT", RentalPricePerHour = 2800, ModelId = 4, Model = CarModels[3] },
-            new() { Id = 5, Year = 2024, EngineVolume = 3.0, Transmission = "AT", RentalPricePerHour = 8000, ModelId = 5, Model = CarModels[4] },
-            new() { Id = 6, Year = 2022, EngineVolume = 5.3, Transmission = "AT", RentalPricePerHour = 3500, ModelId = 6, Model = CarModels[5] },
-            new() { Id = 7, Year = 2023, EngineVolume = 1.6, Transmission = "MT", RentalPricePerHour = 700, ModelId = 7, Model = CarModels[6] },
-            new() { Id = 8, Year = 2024, EngineVolume = 2.5, Transmission = "AT", RentalPricePerHour = 1800, ModelId = 8, Model = CarModels[7] },
-            new() { Id = 9, Year = 2022, EngineVolume = 2.7, Transmission = "MT", RentalPricePerHour = 1500, ModelId = 9, Model = CarModels[8] },
-            new() { Id = 10, Year = 2023, EngineVolume = 1.8, Transmission = "CVT", RentalPricePerHour = 1600, ModelId = 10, Model = CarModels[9] },
-            new() { Id = 11, Year = 2022, EngineVolume = 2.7, Transmission = "MT", RentalPricePerHour = 1400, ModelId = 11, Model = CarModels[10] },
-            new() { Id = 12, Year = 2024, EngineVolume = 3.5, Transmission = "AT", RentalPricePerHour = 3200, ModelId = 12, Model = CarModels[11] },
-            new() { Id = 13, Year = 2023, EngineVolume = 3.0, Transmission = "AT", RentalPricePerHour = 6000, ModelId = 13, Model = CarModels[12] },
-            new() { Id = 14, Year = 2024, EngineVolume = 2.0, Transmission = "AT", RentalPricePerHour = 2800, ModelId = 14, Model = CarModels[13] },
-            new() { Id = 15, Year = 2023, EngineVolume = 1.7, Transmission = "MT", RentalPricePerHour = 900, ModelId = 15, Model = CarModels[14] }
+            new() { Id = 1, Year = 2023, EngineVolume = 2.0, Transmission = "AT", RentalPricePerHour = 2200, ModelId = 1 },
+            new() { Id = 2, Year = 2022, EngineVolume = 5.0, Transmission = "AT", RentalPricePerHour = 5000, ModelId = 2 },
+            new() { Id = 3, Year = 2024, EngineVolume = 1.5, Transmission = "CVT", RentalPricePerHour = 1200, ModelId = 3 },
+            new() { Id = 4, Year = 2023, EngineVolume = 3.6, Transmission = "AT", RentalPricePerHour = 2800, ModelId = 4 },
+            new() { Id = 5, Year = 2024, EngineVolume = 3.0, Transmission = "AT", RentalPricePerHour = 8000, ModelId = 5 },
+            new() { Id = 6, Year = 2022, EngineVolume = 5.3, Transmission = "AT", RentalPricePerHour = 3500, ModelId = 6 },
+            new() { Id = 7, Year = 2023, EngineVolume = 1.6, Transmission = "MT", RentalPricePerHour = 700, ModelId = 7 },
+            new() { Id = 8, Year = 2024, EngineVolume = 2.5, Transmission = "AT", RentalPricePerHour = 1800, ModelId = 8 },
+            new() { Id = 9, Year = 2022, EngineVolume = 2.7, Transmission = "MT", RentalPricePerHour = 1500, ModelId = 9 },
+            new() { Id = 10, Year = 2023, EngineVolume = 1.8, Transmission = "CVT", RentalPricePerHour = 1600, ModelId = 10 },
+            new() { Id = 11, Year = 2022, EngineVolume = 2.7, Transmission = "MT", RentalPricePerHour = 1400, ModelId = 11 },
+            new() { Id = 12, Year = 2024, EngineVolume = 3.5, Transmission = "AT", RentalPricePerHour = 3200, ModelId = 12 },
+            new() { Id = 13, Year = 2023, EngineVolume = 3.0, Transmission = "AT", RentalPricePerHour = 6000, ModelId = 13 },
+            new() { Id = 14, Year = 2024, EngineVolume = 2.0, Transmission = "AT", RentalPricePerHour = 2800, ModelId = 14 },
+            new() { Id = 15, Year = 2023, EngineVolume = 1.7, Transmission = "MT", RentalPricePerHour = 900, ModelId = 15 }
         ];
 
         Cars =
         [
-            new() { Id = 1, LicensePlate = "A001AA163", Color = "Black", ModelGenerationId = 1, ModelGeneration = ModelGenerations[0] },
-            new() { Id = 2, LicensePlate = "B777BC163", Color = "Red", ModelGenerationId = 2, ModelGeneration = ModelGenerations[1] },
-            new() { Id = 3, LicensePlate = "C123ET163", Color = "White", ModelGenerationId = 3, ModelGeneration = ModelGenerations[2] },
-            new() { Id = 4, LicensePlate = "E555KH163", Color = "Green", ModelGenerationId = 4, ModelGeneration = ModelGenerations[3] },
-            new() { Id = 5, LicensePlate = "K234MR163", Color = "Silver", ModelGenerationId = 5, ModelGeneration = ModelGenerations[4] },
-            new() { Id = 6, LicensePlate = "M888OA163", Color = "Gray", ModelGenerationId = 6, ModelGeneration = ModelGenerations[5] },
-            new() { Id = 7, LicensePlate = "N456RS163", Color = "Blue", ModelGenerationId = 7, ModelGeneration = ModelGenerations[6] },
-            new() { Id = 8, LicensePlate = "O789TU163", Color = "Brown", ModelGenerationId = 8, ModelGeneration = ModelGenerations[7] },
-            new() { Id = 9, LicensePlate = "P321XO163", Color = "White", ModelGenerationId = 9, ModelGeneration = ModelGenerations[8] },
-            new() { Id = 10, LicensePlate = "S654AM163", Color = "Black", ModelGenerationId = 10, ModelGeneration = ModelGenerations[9] },
-            new() { Id = 11, LicensePlate = "T987RE163", Color = "Orange", ModelGenerationId = 11, ModelGeneration = ModelGenerations[10] },
-            new() { Id = 12, LicensePlate = "U246KN163", Color = "White", ModelGenerationId = 12, ModelGeneration = ModelGenerations[11] },
-            new() { Id = 13, LicensePlate = "H135VT163", Color = "Black", ModelGenerationId = 13, ModelGeneration = ModelGenerations[12] },
-            new() { Id = 14, LicensePlate = "SH579SA163", Color = "Gray", ModelGenerationId = 14, ModelGeneration = ModelGenerations[13] },
-            new() { Id = 15, LicensePlate = "SCH864RO163", Color = "Blue", ModelGenerationId = 15, ModelGeneration = ModelGenerations[14] }
+            new() { Id = 1, LicensePlate = "A001AA163", Color = "Black", ModelGenerationId = 1 },
+            new() { Id = 2, LicensePlate = "B777BC163", Color = "Red", ModelGenerationId = 2 },
+            new() { Id = 3, LicensePlate = "C123ET163", Color = "White", ModelGenerationId = 3 },
+            new() { Id = 4, LicensePlate = "E555KH163", Color = "Green", ModelGenerationId = 4 },
+            new() { Id = 5, LicensePlate = "K234MR163", Color = "Silver", ModelGenerationId = 5 },
+            new() { Id = 6, LicensePlate = "M888OA163", Color = "Gray", ModelGenerationId = 6 },
+            new() { Id = 7, LicensePlate = "N456RS163", Color = "Blue", ModelGenerationId = 7 },
+            new() { Id = 8, LicensePlate = "O789TU163", Color = "Brown", ModelGenerationId = 8 },
+            new() { Id = 9, LicensePlate = "P321XO163", Color = "White", ModelGenerationId = 9 },
+            new() { Id = 10, LicensePlate = "S654AM163", Color = "Black", ModelGenerationId = 10 },
+            new() { Id = 11, LicensePlate = "T987RE163", Color = "Orange", ModelGenerationId = 11 },
+            new() { Id = 12, LicensePlate = "U246KN163", Color = "White", ModelGenerationId = 12 },
+            new() { Id = 13, LicensePlate = "H135VT163", Color = "Black", ModelGenerationId = 13 },
+            new() { Id = 14, LicensePlate = "SH579SA163", Color = "Gray", ModelGenerationId = 14 },
+            new() { Id = 15, LicensePlate = "SCH864RO163", Color = "Blue", ModelGenerationId = 15 }
         ];
 
 
@@ -96,25 +95,25 @@ public class CarRentalFixture
 
         Rentals =
         [
-            new() { Id = 1, CarId = 7, ClientId = 1, RentalDate = new DateTime(2024, 3, 1, 10, 0, 0), RentalHours = 48, Car = Cars[6], Client = Clients[0] },
-            new() { Id = 2, CarId = 7, ClientId = 3, RentalDate = new DateTime(2024, 2, 25, 14, 30, 0), RentalHours = 72, Car = Cars[6], Client = Clients[2] },
-            new() { Id = 3, CarId = 7, ClientId = 5, RentalDate = new DateTime(2024, 2, 20, 9, 15, 0), RentalHours = 24, Car = Cars[6], Client = Clients[4] },
-            new() { Id = 4, CarId = 1, ClientId = 2, RentalDate = new DateTime(2024, 2, 27, 11, 45, 0), RentalHours = 96, Car = Cars[0], Client = Clients[1] },
-            new() { Id = 5, CarId = 1, ClientId = 4, RentalDate = new DateTime(2024, 2, 25, 16, 0, 0), RentalHours = 120, Car = Cars[0], Client = Clients[3] },
-            new() { Id = 6, CarId = 2, ClientId = 6, RentalDate = new DateTime(2024, 2, 23, 13, 20, 0), RentalHours = 72, Car = Cars[1], Client = Clients[5] },
-            new() { Id = 7, CarId = 2, ClientId = 8, RentalDate = new DateTime(2024, 2, 18, 10, 10, 0), RentalHours = 48, Car = Cars[1], Client = Clients[7] },
-            new() { Id = 8, CarId = 3, ClientId = 7, RentalDate = new DateTime(2024, 2, 28, 8, 30, 0), RentalHours = 36, Car = Cars[2], Client = Clients[6] },
-            new() { Id = 9, CarId = 4, ClientId = 9, RentalDate = new DateTime(2024, 2, 15, 12, 0, 0), RentalHours = 96, Car = Cars[3], Client = Clients[8] },
-            new() { Id = 10, CarId = 5, ClientId = 10, RentalDate = new DateTime(2024, 2, 28, 7, 0, 0), RentalHours = 168, Car = Cars[4], Client = Clients[9] },
-            new() { Id = 11, CarId = 6, ClientId = 11, RentalDate = new DateTime(2024, 2, 22, 15, 45, 0), RentalHours = 72, Car = Cars[5], Client = Clients[10] },
-            new() { Id = 12, CarId = 8, ClientId = 12, RentalDate = new DateTime(2024, 2, 26, 9, 20, 0), RentalHours = 48, Car = Cars[7], Client = Clients[11] },
-            new() { Id = 13, CarId = 9, ClientId = 13, RentalDate = new DateTime(2024, 2, 29, 22, 0, 0), RentalHours = 60, Car = Cars[8], Client = Clients[12] },
-            new() { Id = 14, CarId = 10, ClientId = 14, RentalDate = new DateTime(2024, 2, 24, 11, 30, 0), RentalHours = 96, Car = Cars[9], Client = Clients[13] },
-            new() { Id = 15, CarId = 11, ClientId = 15, RentalDate = new DateTime(2024, 2, 10, 14, 15, 0), RentalHours = 120, Car = Cars[10], Client = Clients[14] },
-            new() { Id = 16, CarId = 12, ClientId = 1, RentalDate = new DateTime(2024, 2, 29, 14, 0, 0), RentalHours = 48, Car = Cars[11], Client = Clients[0] },
-            new() { Id = 17, CarId = 13, ClientId = 2, RentalDate = new DateTime(2024, 2, 5, 16, 45, 0), RentalHours = 72, Car = Cars[12], Client = Clients[1] },
-            new() { Id = 18, CarId = 14, ClientId = 3, RentalDate = new DateTime(2024, 2, 12, 10, 10, 0), RentalHours = 36, Car = Cars[13], Client = Clients[2] },
-            new() { Id = 19, CarId = 15, ClientId = 4, RentalDate = new DateTime(2024, 2, 16, 13, 30, 0), RentalHours = 84, Car = Cars[14], Client = Clients[3] }
+            new() { Id = 1, CarId = 7, ClientId = 1, RentalDate = new DateTime(2024, 3, 1, 10, 0, 0), RentalHours = 48 },
+            new() { Id = 2, CarId = 7, ClientId = 3, RentalDate = new DateTime(2024, 2, 25, 14, 30, 0), RentalHours = 72 },
+            new() { Id = 3, CarId = 7, ClientId = 5, RentalDate = new DateTime(2024, 2, 20, 9, 15, 0), RentalHours = 24},
+            new() { Id = 4, CarId = 1, ClientId = 2, RentalDate = new DateTime(2024, 2, 27, 11, 45, 0), RentalHours = 96 },
+            new() { Id = 5, CarId = 1, ClientId = 4, RentalDate = new DateTime(2024, 2, 25, 16, 0, 0), RentalHours = 120},
+            new() { Id = 6, CarId = 2, ClientId = 6, RentalDate = new DateTime(2024, 2, 23, 13, 20, 0), RentalHours = 72},
+            new() { Id = 7, CarId = 2, ClientId = 8, RentalDate = new DateTime(2024, 2, 18, 10, 10, 0), RentalHours = 48 },
+            new() { Id = 8, CarId = 3, ClientId = 7, RentalDate = new DateTime(2024, 2, 28, 8, 30, 0), RentalHours = 36 },
+            new() { Id = 9, CarId = 4, ClientId = 9, RentalDate = new DateTime(2024, 2, 15, 12, 0, 0), RentalHours = 96 },
+            new() { Id = 10, CarId = 5, ClientId = 10, RentalDate = new DateTime(2024, 2, 28, 7, 0, 0), RentalHours = 168 },
+            new() { Id = 11, CarId = 6, ClientId = 11, RentalDate = new DateTime(2024, 2, 22, 15, 45, 0), RentalHours = 72 },
+            new() { Id = 12, CarId = 8, ClientId = 12, RentalDate = new DateTime(2024, 2, 26, 9, 20, 0), RentalHours = 48 },
+            new() { Id = 13, CarId = 9, ClientId = 13, RentalDate = new DateTime(2024, 2, 29, 22, 0, 0), RentalHours = 60 },
+            new() { Id = 14, CarId = 10, ClientId = 14, RentalDate = new DateTime(2024, 2, 24, 11, 30, 0), RentalHours = 96 },
+            new() { Id = 15, CarId = 11, ClientId = 15, RentalDate = new DateTime(2024, 2, 10, 14, 15, 0), RentalHours = 120 },
+            new() { Id = 16, CarId = 12, ClientId = 1, RentalDate = new DateTime(2024, 2, 29, 14, 0, 0), RentalHours = 48 },
+            new() { Id = 17, CarId = 13, ClientId = 2, RentalDate = new DateTime(2024, 2, 5, 16, 45, 0), RentalHours = 72 },
+            new() { Id = 18, CarId = 14, ClientId = 3, RentalDate = new DateTime(2024, 2, 12, 10, 10, 0), RentalHours = 36 },
+            new() { Id = 19, CarId = 15, ClientId = 4, RentalDate = new DateTime(2024, 2, 16, 13, 30, 0), RentalHours = 84 }
        ];
     }
 }

@@ -15,6 +15,8 @@ namespace CarRental.Api.Controllers;
 public class AnalyticsController(
     IRepository<Rental> rentalsRepo,
     IRepository<Car> carsRepo,
+    IRepository<Client> clientsRepo,
+    IRepository<ModelGeneration> generationsRepo,
     IMapper mapper) : ControllerBase
 {
     /// <summary>
@@ -35,7 +37,7 @@ public class AnalyticsController(
                 .Include(r => r.Client));
 
         var clients = await rentalsQuery
-            .Where(r => r.Car.ModelGeneration.Model.Name == modelName)
+            .Where(r => r.Car!.ModelGeneration!.Model!.Name == modelName)
             .Select(r => r.Client)
             .Distinct()
             .OrderBy(c => c.FullName)
@@ -58,17 +60,23 @@ public class AnalyticsController(
     public async Task<ActionResult<IEnumerable<CarGetDto>>> GetCurrentlyRentedCars(
         [FromQuery] DateTime currentDate)
     {
-        var rentals = await rentalsRepo.GetAllAsync(
-            include: query => query.Include(r => r.Car));
-
-        var rentedCars = rentals
+        var rentedCarIds = await rentalsRepo.GetQueryable()
             .Where(r => r.RentalDate.AddHours(r.RentalHours) > currentDate)
-            .Select(r => r.Car)
+            .Select(r => r.CarId)
             .Distinct()
+            .ToListAsync();
+
+        var rentedCars = await carsRepo.GetQueryable()
+            .Where(c => rentedCarIds.Contains(c.Id))
+            .Include(c => c.ModelGeneration)
+                .ThenInclude(m => m!.Model)
+            .ToListAsync();
+
+        var result = rentedCars
             .Select(mapper.Map<CarGetDto>)
             .ToList();
 
-        return Ok(rentedCars);
+        return Ok(result);
     }
 
     /// <summary>
@@ -79,20 +87,31 @@ public class AnalyticsController(
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<IEnumerable<CarRentalCountDto>>> GetTop5MostRentedCars()
     {
-        var rentals = await rentalsRepo.GetAllAsync(
-            include: query => query.Include(r => r.Car));
-
-        var topCars = rentals
-            .GroupBy(r => r.Car)
-            .Select(g => new { Car = g.Key, RentalCount = g.Count() })
+        var topCarStats = await rentalsRepo.GetQueryable()
+            .GroupBy(r => r.CarId)
+            .Select(g => new { CarId = g.Key, RentalCount = g.Count() })
             .OrderByDescending(x => x.RentalCount)
             .Take(5)
+            .ToListAsync();
+
+        var topCarIds = topCarStats.Select(x => x.CarId).ToList();
+
+        var cars = await carsRepo.GetQueryable()
+            .Where(c => topCarIds.Contains(c.Id))
+            .Include(c => c.ModelGeneration)
+                .ThenInclude(m => m!.Model)
+            .ToListAsync();
+
+        var carsDict = cars.ToDictionary(c => c.Id);
+
+        var topCarsResult = topCarStats
+            .Where(x => carsDict.ContainsKey(x.CarId))
             .Select(x => new CarRentalCountDto(
-                mapper.Map<CarGetDto>(x.Car),
+                mapper.Map<CarGetDto>(carsDict[x.CarId]),
                 x.RentalCount))
             .ToList();
 
-        return Ok(topCars);
+        return Ok(topCarsResult);
     }
 
     /// <summary>
@@ -103,14 +122,20 @@ public class AnalyticsController(
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<IEnumerable<CarRentalCountDto>>> GetRentalCountPerCar()
     {
-        var rentals = await rentalsRepo.GetAllAsync();
-        var cars = await carsRepo.GetAllAsync(
-            include: query => query.Include(c => c.ModelGeneration));
+        var rentalCounts = await rentalsRepo.GetQueryable()
+            .GroupBy(r => r.CarId)
+            .Select(g => new { CarId = g.Key, Count = g.Count() })
+            .ToDictionaryAsync(x => x.CarId, x => x.Count);
+
+        var cars = await carsRepo.GetQueryable()
+            .Include(c => c.ModelGeneration)
+                .ThenInclude(m => m!.Model)
+            .ToListAsync();
 
         var carsWithRentalCount = cars
             .Select(car => new CarRentalCountDto(
                 mapper.Map<CarGetDto>(car),
-                rentals.Count(r => r.CarId == car.Id)))
+                rentalCounts.GetValueOrDefault(car.Id, 0)))
             .OrderByDescending(x => x.RentalCount)
             .ToList();
 
@@ -125,27 +150,50 @@ public class AnalyticsController(
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<IEnumerable<ClientRentalAmountDto>>> GetTop5ClientsByRentalAmount()
     {
-        var rentals = await rentalsRepo.GetAllAsync(
-            include: query => query
-                .Include(r => r.Car)
-                    .ThenInclude(c => c.ModelGeneration)
-                .Include(r => r.Client));
+        var rentals = await rentalsRepo.GetQueryable()
+            .Select(r => new { r.ClientId, r.CarId, r.RentalHours })
+            .ToListAsync();
 
-        var topClients = rentals
-            .Select(r => new
+        var cars = await carsRepo.GetQueryable()
+            .Select(c => new { c.Id, c.ModelGenerationId })
+            .ToListAsync();
+
+        var generations = await generationsRepo.GetQueryable()
+            .Select(g => new { g.Id, g.RentalPricePerHour })
+            .ToListAsync();
+
+        var carPrices = cars.Join(generations,
+            c => c.ModelGenerationId,
+            g => g.Id,
+            (c, g) => new { CarId = c.Id, Price = g.RentalPricePerHour })
+            .ToDictionary(x => x.CarId, x => x.Price);
+
+        var topClientStats = rentals
+            .GroupBy(r => r.ClientId)
+            .Select(g => new
             {
-                Client = r.Client,
-                Amount = r.RentalHours * r.Car.ModelGeneration.RentalPricePerHour
+                ClientId = g.Key,
+                TotalAmount = g.Sum(r => r.RentalHours * carPrices.GetValueOrDefault(r.CarId, 0))
             })
-            .GroupBy(x => x.Client)
-            .Select(g => new { Client = g.Key, TotalAmount = g.Sum(x => x.Amount) })
             .OrderByDescending(x => x.TotalAmount)
             .Take(5)
+            .ToList();
+
+        var topClientIds = topClientStats.Select(x => x.ClientId).ToList();
+
+        var clients = await clientsRepo.GetQueryable()
+            .Where(c => topClientIds.Contains(c.Id))
+            .ToListAsync();
+
+        var clientsDict = clients.ToDictionary(c => c.Id);
+
+        var result = topClientStats
+            .Where(x => clientsDict.ContainsKey(x.ClientId))
             .Select(x => new ClientRentalAmountDto(
-                mapper.Map<ClientGetDto>(x.Client),
+                mapper.Map<ClientGetDto>(clientsDict[x.ClientId]),
                 x.TotalAmount))
             .ToList();
 
-        return Ok(topClients);
+        return Ok(result);
     }
 }

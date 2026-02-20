@@ -1,7 +1,6 @@
 using CarRental.Domain.Interfaces;
 using CarRental.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
 
 namespace CarRental.Infrastructure.Repositories;
 

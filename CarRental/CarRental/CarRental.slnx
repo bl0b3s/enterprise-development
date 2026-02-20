@@ -1,5 +1,5 @@
 <Solution>
-  <Project Path="AspireApp1/AspireApp1.AppHost/CarRental.AppHost.csproj" Id="8b646ae7-1b61-416e-b1b0-9e0d4d943503" />
+  <Project Path="CarRental.AppHost/CarRental.AppHost.csproj" Id="8b646ae7-1b61-416e-b1b0-9e0d4d943503" />
   <Project Path="CarRental.API/CarRental.API.csproj" Id="e236ffe2-ae18-487d-a1b4-a35e80ab17ac" />
   <Project Path="CarRental.Application.Contracts/CarRental.Application.Contracts.csproj" Id="6c3f7e9d-205d-42b5-8be1-995480754047" />
   <Project Path="CarRental.Domain/CarRental.Domain.csproj" Id="24e6148c-40eb-43e8-bddd-c8717a923d97" />

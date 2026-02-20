@@ -1,16 +1,17 @@
 using CarRental.Application.Contracts;
+using CarRental.Domain.Data;
 using CarRental.Domain.Entities;
 using CarRental.Domain.Interfaces;
 using CarRental.Infrastructure.Persistence;
 using CarRental.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection;
-using System.Runtime.ConstrainedExecution;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
+
+builder.Services.AddSingleton<CarRentalFixture>();
 
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
@@ -59,21 +60,6 @@ using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     db.Database.Migrate();
-
-    if (!db.CarModels.Any())
-    {
-        Console.WriteLine("Seeding database...");
-        var testData = new CarRental.Domain.Data.CarRentalFixture();
-
-        db.CarModels.AddRange(testData.CarModels);
-        db.Clients.AddRange(testData.Clients);
-        db.ModelGenerations.AddRange(testData.ModelGenerations);
-        db.Cars.AddRange(testData.Cars);
-        db.Rentals.AddRange(testData.Rentals);
-
-        db.SaveChanges();
-        Console.WriteLine("Database seeded successfully!");
-    }
 }
 
 app.UseSwagger();
