@@ -21,18 +21,33 @@ public class CarRentalTests(CarRentalFixture fixture) : IClassFixture<CarRentalF
         const string expectedSecondName = "Denis Popov";
         const string expectedThirdName = "Igor Kozlovsky";
 
-        var clients = fixture.Rentals
-            .Where(r => r.Car?.ModelGeneration?.Model?.Name == targetModel)
-            .Select(r => r.Client)
-            .Where(client => client != null)
+        var modelId = fixture.CarModels.FirstOrDefault(m => m.Name == targetModel)?.Id;
+
+        var generationIds = fixture.ModelGenerations
+            .Where(mg => mg.ModelId == modelId)
+            .Select(mg => mg.Id)
+            .ToList();
+
+        var carIds = fixture.Cars
+            .Where(c => generationIds.Contains(c.ModelGenerationId))
+            .Select(c => c.Id)
+            .ToList();
+
+        var clientIds = fixture.Rentals
+            .Where(r => carIds.Contains(r.CarId))
+            .Select(r => r.ClientId)
             .Distinct()
-            .OrderBy(c => c!.FullName)
+            .ToList();
+
+        var clients = fixture.Clients
+            .Where(c => clientIds.Contains(c.Id))
+            .OrderBy(c => c.FullName)
             .ToList();
 
         Assert.Equal(expectedCount, clients.Count);
-        Assert.Equal(expectedFirstName, clients[0]?.FullName);
-        Assert.Equal(expectedSecondName, clients[1]?.FullName);
-        Assert.Equal(expectedThirdName, clients[2]?.FullName);
+        Assert.Equal(expectedFirstName, clients[0].FullName);
+        Assert.Equal(expectedSecondName, clients[1].FullName);
+        Assert.Equal(expectedThirdName, clients[2].FullName);
     }
 
     /// <summary>
@@ -44,14 +59,17 @@ public class CarRentalTests(CarRentalFixture fixture) : IClassFixture<CarRentalF
         var testDate = new DateTime(2024, 3, 5, 12, 0, 0);
         var expectedPlate = "K234MR163";
 
-        var rentedCars = fixture.Rentals
-            .Where(r => r.Car != null && r.RentalDate.AddHours(r.RentalHours) > testDate)
-            .Select(r => r.Car)
-            .Where(car => car != null)
+        var rentedCarIds = fixture.Rentals
+            .Where(r => r.RentalDate.AddHours(r.RentalHours) > testDate)
+            .Select(r => r.CarId)
             .Distinct()
             .ToList();
 
-        Assert.Contains(rentedCars, c => c?.LicensePlate == expectedPlate);
+        var rentedCars = fixture.Cars
+            .Where(c => rentedCarIds.Contains(c.Id))
+            .ToList();
+
+        Assert.Contains(rentedCars, c => c.LicensePlate == expectedPlate);
     }
 
     /// <summary>
@@ -64,13 +82,25 @@ public class CarRentalTests(CarRentalFixture fixture) : IClassFixture<CarRentalF
         const string expectedTopCarPlate = "N456RS163";
         const int expectedTopCarRentalCount = 3;
 
-        var topCars = fixture.Rentals
-            .Where(r => r.Car != null)
-            .GroupBy(r => r.Car)
-            .Select(g => new { Car = g.Key, RentalCount = g.Count() })
-            .Where(x => x.Car != null)
+        var topCarStats = fixture.Rentals
+            .GroupBy(r => r.CarId)
+            .Select(g => new { CarId = g.Key, RentalCount = g.Count() })
             .OrderByDescending(x => x.RentalCount)
             .Take(5)
+            .ToList();
+
+        var topCarIds = topCarStats.Select(x => x.CarId).ToList();
+        var carsDict = fixture.Cars
+            .Where(c => topCarIds.Contains(c.Id))
+            .ToDictionary(c => c.Id);
+
+        var topCars = topCarStats
+            .Select(x => new
+            {
+                Car = carsDict.GetValueOrDefault(x.CarId),
+                x.RentalCount
+            })
+            .Where(x => x.Car != null)
             .ToList();
 
         Assert.Equal(expectedCount, topCars.Count);
@@ -90,12 +120,15 @@ public class CarRentalTests(CarRentalFixture fixture) : IClassFixture<CarRentalF
         const int ladaVestaCarId = 7;
         const int bmwCarId = 1;
 
+        var rentalCounts = fixture.Rentals
+            .GroupBy(r => r.CarId)
+            .ToDictionary(g => g.Key, g => g.Count());
+
         var carsWithRentalCount = fixture.Cars
-            .Where(car => car != null)
             .Select(car => new
             {
                 Car = car,
-                RentalCount = fixture.Rentals.Count(r => r.CarId == car.Id)
+                RentalCount = rentalCounts.GetValueOrDefault(car.Id, 0)
             })
             .ToList();
 
@@ -118,18 +151,36 @@ public class CarRentalTests(CarRentalFixture fixture) : IClassFixture<CarRentalF
         const int expectedCount = 5;
         const string expectedTopClientName = "Olga Zakharova";
 
-        var topClients = fixture.Rentals
-            .Where(r => r.Client != null && r.Car?.ModelGeneration != null)
-            .Select(r => new
+        var carPrices = fixture.Cars
+            .Join(fixture.ModelGenerations,
+                c => c.ModelGenerationId,
+                g => g.Id,
+                (c, g) => new { CarId = c.Id, Price = g.RentalPricePerHour })
+            .ToDictionary(x => x.CarId, x => x.Price);
+
+        var topClientStats = fixture.Rentals
+            .GroupBy(r => r.ClientId)
+            .Select(g => new
             {
-                Client = r.Client,
-                Amount = r.RentalHours * r.Car!.ModelGeneration!.RentalPricePerHour
+                ClientId = g.Key,
+                TotalAmount = g.Sum(r => r.RentalHours * carPrices.GetValueOrDefault(r.CarId, 0))
             })
-            .GroupBy(x => x.Client)
-            .Select(g => new { Client = g.Key, TotalAmount = g.Sum(x => x.Amount) })
-            .Where(x => x.Client != null)
             .OrderByDescending(x => x.TotalAmount)
             .Take(5)
+            .ToList();
+
+        var topClientIds = topClientStats.Select(x => x.ClientId).ToList();
+        var clientsDict = fixture.Clients
+            .Where(c => topClientIds.Contains(c.Id))
+            .ToDictionary(c => c.Id);
+
+        var topClients = topClientStats
+            .Select(x => new
+            {
+                Client = clientsDict.GetValueOrDefault(x.ClientId),
+                x.TotalAmount
+            })
+            .Where(x => x.Client != null)
             .ToList();
 
         Assert.Equal(expectedCount, topClients.Count);
