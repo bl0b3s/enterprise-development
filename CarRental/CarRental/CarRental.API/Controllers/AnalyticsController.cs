@@ -32,15 +32,15 @@ public class AnalyticsController(
         var rentalsQuery = rentalsRepo.GetQueryable(
             include: query => query
                 .Include(r => r.Car)
-                    .ThenInclude(c => c.ModelGeneration)
-                        .ThenInclude(mg => mg.Model)
+                    .ThenInclude(c => c!.ModelGeneration)
+                        .ThenInclude(mg => mg!.Model)
                 .Include(r => r.Client));
 
         var clients = await rentalsQuery
             .Where(r => r.Car!.ModelGeneration!.Model!.Name == modelName)
             .Select(r => r.Client)
             .Distinct()
-            .OrderBy(c => c.FullName)
+            .OrderBy(c => c!.FullName)
             .ToListAsync();
 
         var result = clients

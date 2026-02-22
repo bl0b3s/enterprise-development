@@ -1,9 +1,13 @@
 using CarRental.Application.Contracts;
+using CarRental.Application.Contracts.Dto;
 using CarRental.Domain.Data;
 using CarRental.Domain.Entities;
 using CarRental.Domain.Interfaces;
+using CarRental.Infrastructure.Kafka;
+using CarRental.Infrastructure.Kafka.Deserializers;
 using CarRental.Infrastructure.Persistence;
 using CarRental.Infrastructure.Repositories;
+using Confluent.Kafka;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 
@@ -53,6 +57,21 @@ builder.Services.AddScoped<IRepository<Client>, DbRepository<Client>>();
 builder.Services.AddScoped<IRepository<CarModel>, DbRepository<CarModel>>();
 builder.Services.AddScoped<IRepository<ModelGeneration>, DbRepository<ModelGeneration>>();
 builder.Services.AddScoped<IRepository<Rental>, DbRepository<Rental>>();
+
+builder.Services.AddHostedService<RentalKafkaConsumer>();
+
+builder.AddKafkaConsumer<Guid, IList<RentalEditDto>>("car-rental-kafka",
+    configureBuilder: builder =>
+    {
+        builder.SetKeyDeserializer(new GuidKeyDeserializer());
+        builder.SetValueDeserializer(new RentalValueDeserializer());
+    },
+    configureSettings: settings =>
+    {
+        settings.Config.GroupId = "rental-consumer";
+        settings.Config.AutoOffsetReset = AutoOffsetReset.Earliest;
+    }
+);
 
 var app = builder.Build();
 

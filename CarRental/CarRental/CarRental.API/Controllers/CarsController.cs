@@ -28,7 +28,7 @@ public class CarsController(
         var entities = await repo.GetAllAsync(
             include: query => query
                 .Include(c => c.ModelGeneration)
-                    .ThenInclude(mg => mg.Model));
+                    .ThenInclude(mg => mg!.Model));
         var dtos = mapper.Map<IEnumerable<CarGetDto>>(entities);
         return Ok(dtos);
     }
@@ -46,7 +46,7 @@ public class CarsController(
         var entity = await repo.GetByIdAsync(id,
             include: query => query
                 .Include(c => c.ModelGeneration)
-                    .ThenInclude(mg => mg.Model));
+                    .ThenInclude(mg => mg!.Model));
         if (entity == null) return NotFound();
         var dto = mapper.Map<CarGetDto>(entity);
         return Ok(dto);
@@ -73,7 +73,7 @@ public class CarsController(
         var carWithIncludes = await repo.GetByIdAsync(created.Id,
             include: query => query
                 .Include(c => c.ModelGeneration)
-                    .ThenInclude(mg => mg.Model));
+                    .ThenInclude(mg => mg!.Model));
         var resultDto = mapper.Map<CarGetDto>(carWithIncludes);
 
         return CreatedAtAction(nameof(Get), new { id = resultDto.Id }, resultDto);
@@ -104,7 +104,7 @@ public class CarsController(
         var updatedWithIncludes = await repo.GetByIdAsync(entity.Id,
             include: query => query
                 .Include(c => c.ModelGeneration)
-                    .ThenInclude(mg => mg.Model));
+                    .ThenInclude(mg => mg!.Model));
         var resultDto = mapper.Map<CarGetDto>(updatedWithIncludes);
 
         return Ok(resultDto);
