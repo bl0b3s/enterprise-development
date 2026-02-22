@@ -3,6 +3,7 @@
   <Project Path="CarRental.AppHost/CarRental.AppHost.csproj" Id="8b646ae7-1b61-416e-b1b0-9e0d4d943503" />
   <Project Path="CarRental.Application.Contracts/CarRental.Application.Contracts.csproj" Id="6c3f7e9d-205d-42b5-8be1-995480754047" />
   <Project Path="CarRental.Domain/CarRental.Domain.csproj" Id="24e6148c-40eb-43e8-bddd-c8717a923d97" />
+  <Project Path="CarRental.Generator.Kafka.Host/CarRental.Generator.Kafka.Host.csproj" />
   <Project Path="CarRental.Infrastructure.Kafka/CarRental.Infrastructure.Kafka.csproj" Id="4a457dc7-a910-4800-82c1-9e584f0f9015" />
   <Project Path="CarRental.Infrastructure/CarRental.Infrastructure.csproj" Id="58c17c96-71c4-4594-ae5e-7b44cd3d317e" />
   <Project Path="CarRental.ServiceDefaults/CarRental.ServiceDefaults.csproj" Id="b92c134d-6975-4892-9013-bb3c3ba26900" />

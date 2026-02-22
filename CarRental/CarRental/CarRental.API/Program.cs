@@ -60,7 +60,7 @@ builder.Services.AddScoped<IRepository<Rental>, DbRepository<Rental>>();
 
 builder.Services.AddHostedService<RentalKafkaConsumer>();
 
-builder.AddKafkaConsumer<Guid, IList<RentalEditDto>>("car-rental-kafka",
+builder.AddKafkaConsumer<Guid, IList<RentalEditDto>>("carrental-kafka",
     configureBuilder: builder =>
     {
         builder.SetKeyDeserializer(new GuidKeyDeserializer());
