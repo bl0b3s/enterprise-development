@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Sdk Name="Aspire.AppHost.Sdk" Version="13.1.1" />
+  
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsAspireHost>true</IsAspireHost>
+    <UserSecretsId>70dd5e9d-2669-455c-87c8-a11d69e37eff</UserSecretsId>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.AppHost" Version="13.1.1" />
+    <PackageReference Include="Aspire.Hosting.SqlServer" Version="13.1.1" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\CarRental.Api\CarRental.Api.csproj" />
+    <ProjectReference Include="..\CarRental.Producer\CarRental.Producer.csproj" />
+    <ProjectReference Include="..\CarRental.Consumer\CarRental.Consumer.csproj" />
+  </ItemGroup>
+
+</Project>

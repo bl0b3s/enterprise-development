@@ -1,9 +1,11 @@
-﻿namespace CarRental.Tests;
+﻿using CarRental.Domain.Data;
+
+namespace CarRental.Tests;
 
 /// <summary>
 /// Tests for car rental functionalities.
 /// </summary>
-public class LinqQueryTests(CarRentalDataFixture testData) : IClassFixture<CarRentalDataFixture>
+public class LinqQueryTests(DataSeed testData) : IClassFixture<DataSeed>
 {
     [Fact]
     public void GetCustomersByModel()

@@ -1,13 +1,17 @@
-﻿using CarRental.Domain.Models;
-using CarRental.Domain.Enums;
+﻿using CarRental.Domain.Enums;
+using CarRental.Domain.Models;
 
-namespace CarRental.Tests;
+namespace CarRental.Domain.Data;
 
 /// <summary>
-/// Provides sample data for car rental domain entities
+/// Provides seed data for the Car Rental domain entities.
+/// This class contains initial data for database seeding and testing purposes.
 /// </summary>
-public class CarRentalDataFixture
+public class DataSeed
 {
+    /// <summary>
+    /// Gets the list of car models for seeding.
+    /// </summary>
     public List<CarModel> CarModels { get; } = new()
     {
         new() { Id = 1, Name = "Toyota Camry", DriverType = DriverType.FrontWheelDrive, SeatingCapacity = 5, BodyType = BodyType.Sedan, CarClass = CarClass.Intermediate },
@@ -17,6 +21,9 @@ public class CarRentalDataFixture
         new() { Id = 5, Name = "Volkswagen Tiguan", DriverType = DriverType.AllWheelDrive, SeatingCapacity = 5, BodyType = BodyType.Crossover, CarClass = CarClass.Intermediate },
     };
 
+    /// <summary>
+    /// Gets the list of model generations for seeding.
+    /// </summary>
     public List<ModelGeneration> ModelGenerations { get; } = new()
     {
         new() { Id = 1, CarModelId = 1, ProductionYear = 2023, EngineVolumeLiters = 2.5m, TransmissionType = TransmissionType.Automatic, HourlyRate = 1200 },
@@ -27,6 +34,9 @@ public class CarRentalDataFixture
         new() { Id = 6, CarModelId = 5, ProductionYear = 2021, EngineVolumeLiters = 2.0m, TransmissionType = TransmissionType.DualClutch, HourlyRate = 1400 },
     };
 
+    /// <summary>
+    /// Gets the list of cars for seeding.
+    /// </summary>
     public List<Car> Cars { get; } = new()
     {
         new() { Id = 1, LicensePlate = "А123ВС 777", Color = "Черный", ModelGenerationId = 1 },
@@ -38,6 +48,9 @@ public class CarRentalDataFixture
         new() { Id = 7, LicensePlate = "О890ЦВ 777", Color = "Черный", ModelGenerationId = 3 },
     };
 
+    /// <summary>
+    /// Gets the list of customers for seeding.
+    /// </summary>
     public List<Customer> Customers { get; } = new()
     {
         new() { Id = 1, DriverLicenseNumber = "1234 567890", FullName = "Иванов Иван Иванович", DateOfBirth = new DateOnly(1985, 3, 12) },
@@ -48,6 +61,9 @@ public class CarRentalDataFixture
         new() { Id = 6, DriverLicenseNumber = "6789 012345", FullName = "Волкова Ольга Николаевна", DateOfBirth = new DateOnly(1995, 1, 8) },
     };
 
+    /// <summary>
+    /// Gets the list of rentals for seeding.
+    /// </summary>
     public List<Rental> Rentals { get; } = new()
     {
         new() { Id = 1, CustomerId = 1, CarId = 1, PickupDateTime = new DateTime(2025, 10, 1, 9, 0, 0), Hours = 24 },
@@ -61,6 +77,6 @@ public class CarRentalDataFixture
         new() { Id = 9, CustomerId = 6, CarId = 2, PickupDateTime = new DateTime(2025, 10, 14, 13, 0, 0), Hours = 4 },
         new() { Id = 10, CustomerId = 3, CarId = 1, PickupDateTime = new DateTime(2025, 9, 25, 10, 0, 0), Hours = 24 },
         new() { Id = 11, CustomerId = 2, CarId = 3, PickupDateTime = new DateTime(2025, 10, 10, 8, 0, 0), Hours = 240 },
-        new() { Id = 12, CustomerId = 5, CarId = 1, PickupDateTime = new DateTime(2025, 10, 15, 14, 0, 0), Hours = 36  }
+        new() { Id = 12, CustomerId = 5, CarId = 1, PickupDateTime = new DateTime(2025, 10, 15, 14, 0, 0), Hours = 36 },
     };
 }
